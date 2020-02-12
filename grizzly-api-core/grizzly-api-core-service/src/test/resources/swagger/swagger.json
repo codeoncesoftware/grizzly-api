@@ -1,0 +1,313 @@
+/*-
+ * ========================LICENSE_START=================================
+ * grizzly-api-core-service
+ * %%
+ * Copyright (C) 2019 - 2020 CODE ONCE SOFTWARE
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * =========================LICENSE_END==================================
+ */
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Build Time: 23/05/2019, 12:58",
+        "version": "0.0.1-SNAPSHOT",
+        "title": "Resource Manager Api"
+    },
+    "host": "localhost:8090",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "container-controller",
+            "description": "Container Controller"
+        },
+        {
+            "name": "user-controller",
+            "description": "User Controller"
+        }
+    ],
+    "paths": {
+        "/allUsers": {
+            "get": {
+                "tags": [
+                    "user-controller"
+                ],
+                "summary": "getAllUsers",
+                "operationId": "getAllUsersUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer {genereated_token}",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/container/all": {
+            "get": {
+                "tags": [
+                    "container-controller"
+                ],
+                "summary": "getAll",
+                "operationId": "getAllUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer {genereated_token}",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/container/check": {
+            "post": {
+                "tags": [
+                    "container-controller"
+                ],
+                "summary": "existsContainerName",
+                "operationId": "existsContainerNameUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer {genereated_token}",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "containerDto",
+                        "description": "containerDto",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "text": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/container/importSwagger": {
+            "post": {
+                "tags": [
+                    "container-controller"
+                ],
+                "summary": "importSwagger",
+                "operationId": "importSwaggerUsingPOST",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer {genereated_token}",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "projectId",
+                        "in": "query",
+                        "description": "projectId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/container/project/{projectId}": {
+            "get": {
+                "tags": [
+                    "container-controller"
+                ],
+                "summary": "containersByProject",
+                "operationId": "containersByProjectUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer {genereated_token}",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "description": "projectId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/container/runtimeRequest/{containerId}": {
+            "get": {
+                "tags": [
+                    "container-controller"
+                ],
+                "summary": "getRuntimeRequest",
+                "operationId": "getRuntimeRequestUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer {genereated_token}",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "containerId",
+                        "in": "path",
+                        "description": "containerId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/user/check/{email}": {
+            "get": {
+                "tags": [
+                    "user-controller"
+                ],
+                "summary": "existsByEmail",
+                "operationId": "existsByEmailUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer {genereated_token}",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "email",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        }
+    }
+}

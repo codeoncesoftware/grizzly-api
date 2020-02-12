@@ -1,0 +1,34 @@
+<app-loader></app-loader>
+<div class="row">
+    <div class="col-9">
+        <mat-form-field style="width: 100%">
+            <mat-placeholder>
+                <span translate>swagger.placeholder.fileUrl</span>
+            </mat-placeholder>
+            <input matInput type="text" [(ngModel)]="swaggerUrl"
+                (paste)="getSwaggerFromUrl($event.clipboardData.getData('text/plain'))" name="swaggerUrl"
+                style="width: 100%">
+        </mat-form-field>
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <div class="col-xl-6">
+                <button matSuffix mat-raised-button (click)="emitUndo()" style="width: 100%">
+                    <em class="material-icons" style="color: #F93E3E">
+                        undo
+                    </em>
+                </button>
+            </div>
+            <div class="col-xl-6">
+                <button matSuffix mat-raised-button (click)="getSwaggerFromUrl(swaggerUrl)" style="width: 100%">
+                    <em class="material-icons" style="color: #66BB6A">
+                        done
+                    </em>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-error *ngIf="showInvalidUrl">
+    <span translate>swagger.errorMsg</span>
+</mat-error>

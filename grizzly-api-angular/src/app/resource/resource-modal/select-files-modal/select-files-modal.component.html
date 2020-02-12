@@ -1,0 +1,17 @@
+<div style="position: relative;">
+    <span style="position: absolute; top:0; right:0;">
+        <button mat-button (click)="selectFilesModalDialogRef.close()">
+            <span translate>api.close</span>
+            <mat-icon>clear</mat-icon>
+        </button>
+    </span>
+
+    <div class="divider divider-md"></div>
+    <div class="divider divider-md"></div>
+    <div class="divider divider-md"></div>
+
+
+    <app-file-search (selectedFile)="addToSelectedFile($event)" (showTree)="showFilesTree()"
+        [selectionMode]="data.mode"></app-file-search>
+
+</div>

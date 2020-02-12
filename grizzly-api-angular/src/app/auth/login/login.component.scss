@@ -1,0 +1,56 @@
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+@import "../../../../node_modules/bootstrap/scss/mixins/_breakpoints";
+
+@include media-breakpoint-up(xs) { 
+    .main-body {
+        width: 90vw;
+    }    
+}
+@include media-breakpoint-up(sm) { 
+    .main-body {
+        width: 70vw;
+    }    
+}
+@include media-breakpoint-up(md) { 
+    .main-body {
+        width: 40vw;
+    } 
+}
+
+.logo {
+    text-align: center;
+}
+
+
+.flag-icon {
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    width: 1.33333333em;
+    line-height: 1em;
+  }
+  
+  .flag-icon:before {
+      content: "\00a0";
+    }
+  
+  .flag-icon-gb {
+    background-image: url(../../../assets/images/flags/gb.svg);
+  }
+  
+  .flag-icon-fr {
+    background-image: url(../../../assets/images/flags/fr.svg);
+  }
+  
+
+  button {
+    cursor: pointer;
+}
+
+
+.mat-raised-button {
+    background-color: #002659;
+}

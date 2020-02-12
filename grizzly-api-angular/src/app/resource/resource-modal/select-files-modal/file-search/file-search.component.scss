@@ -1,0 +1,20 @@
+::ng-deep .mat-pseudo-checkbox { display: none !important; }
+
+.addBtn {
+    float: right;
+    color: white;
+    display: none;
+}
+
+.addNewFile {
+    color: white;
+}
+
+.mat-list-item:hover .addBtn {
+    display: block;
+}
+
+.showTreeBtn {
+    position: absolute;
+    float: right;
+}

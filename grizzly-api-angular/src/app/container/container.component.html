@@ -1,0 +1,175 @@
+<article class="article">
+  <div class="box-header container-header radius-top"
+    [ngClass]="{'border-radius-bottom': !toggleContainerDetails === true}">
+    <button mat-button (click)="showContainerDetails()" style="cursor:pointer">
+      <mat-icon class="material-icons">
+        {{toggleContainerDetails  ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+      </mat-icon> &nbsp;
+      <span translate>container.title</span>
+    </button>
+    <span style="flex: 1 1 auto;"></span>
+    <div style="float:right">
+      <button mat-button (click)="openAddContainerModal()">
+        <mat-icon>library_add</mat-icon> &nbsp;<span translate>container.add</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="box-body bg-color-white radius-bottom" [@slideUpDown]="!toggleContainerDetails">
+    <div class="box box-default">
+      <div class="box-body">
+        <div *ngIf="hideIfEmpty()">
+          <mat-tab-group [@.disabled]="true" (selectedTabChange)="updateActiveState($event)"
+            [selectedIndex]="selectedIndex">
+            <div *ngFor="let container of containers">
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <pre>{{ container.name }}</pre>
+                </ng-template>
+                <br>
+                <!-- START of buttons menu-->
+                <div style="float:right">
+                  <mat-icon style="cursor: pointer; margin-top:5px;margin-right:10px; float: left"
+                    matTooltipClass="test"
+                    matTooltip="{{ 'container.creationTime' | translate }} : {{container.creationTime | date: 'M/d/yy, h:mm a'}} 
+                          {{ 'container.lastUpdate' | translate }} : {{container.lastUpdate | date: 'M/d/yy, h:mm a'}}">
+                    info
+                  </mat-icon>&nbsp;&nbsp;
+
+                  <!-- Container Actions -->
+                  <button mat-button style="background-color:  #002659; color: white" class="btn-w-md cobtn"
+                    [matMenuTriggerFor]="menu" (click)="$event.stopPropagation();">
+                    <mat-icon>menu</mat-icon>
+                    &nbsp; <span translate>container.actions</span>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item class="btn-w-md" (click)="openEditContainerModal(container)">
+                      <mat-icon>edit</mat-icon>
+                      <span translate>container.edit</span>
+                    </button>
+                    <button mat-menu-item class="btn-w-md" (click)="openCloneContainerModal(container)">
+                      <mat-icon>file_copy</mat-icon> <span translate>container.clone</span>
+                    </button>
+                    <button mat-menu-item class="btn-w-md" (click)="exportContainer(container.id)">
+                      <mat-icon>cloud_download</mat-icon>
+                      <span translate>container.export</span>
+                    </button>
+                    <button mat-menu-item class="btn-w-md" (click)="openConfirmDeleteDialog(container.id)">
+                      <mat-icon>delete_forever</mat-icon> <span translate>container.delete</span>
+                    </button>
+
+                  </mat-menu>&nbsp;
+
+                </div>
+
+                <!-- END of buttons menu-->
+                <br>
+
+                <!-- Container Description -->
+                <div class="container-fluid">
+                  <br><br>
+                  <p class="box-dark" id="description" style="border-radius: 6px">
+                    {{container.description || defaultDescription}}
+                  </p>
+                </div>
+
+                <!-- Group Actions -->
+                <div class="container-fluid">
+                  <div class="row" style="text-align: center">
+
+                    <div class="col-md-12">
+
+                      <div class="float-md-left float-sm-left">
+                        <button mat-button style="background-color:  #002659; color: white" class="btn-w-md cobtn"
+                          (click)="openAddResourceDialog(group)">
+                          <mat-icon>note_add</mat-icon>&nbsp;&nbsp; <span translate>resource.add</span>
+                        </button>
+                        &nbsp;
+                      </div>
+
+                      <div class="float-md-left float-sm-left">
+                        <button mat-button style="background-color:  #002659; color: white" class="btn-w-md cobtn"
+                          (click)="RGopenGroupModal()">
+                          <mat-icon>add</mat-icon>
+                          <span translate>group.add</span>
+                        </button>
+                        &nbsp;
+                      </div>
+
+                      <div class="float-md-left float-sm-left">
+                        <button mat-button [matMenuTriggerFor]="swaggerMenu" id="swaggerBtnMenu"
+                          style="background-color:  #002659; color: white">
+                          <mat-icon>donut_small</mat-icon>
+                          &nbsp;
+                          <span translate>Swagger</span>
+                        </button>
+                        &nbsp;
+                      </div>
+
+                      <mat-menu #swaggerMenu="matMenu">
+                        <button mat-menu-item (click)="openSwaggerModal()">
+                          <mat-icon>check</mat-icon>
+                          <span translate>container.swagger</span>
+                        </button>
+                        <button mat-menu-item id="swaggerImport" [matMenuTriggerFor]="menuImportSwagger">
+                          <mat-icon>cloud_upload</mat-icon>
+                          <span translate>container.load</span>
+                        </button>
+                      </mat-menu>
+
+                      <div>
+                        <mat-menu #menuImportSwagger="matMenu">
+                          <button mat-menu-item class="btn-w-md cobtn" (click)="inputFileSwagger.click()">
+                            <mat-icon>attachment</mat-icon>&nbsp;
+                            <span translate>container.file</span>
+                          </button>
+                          <button mat-menu-item class="btn-w-md cobtn" (click)="openSwaggerUrlModal()">
+                            <mat-icon>public</mat-icon>&nbsp;
+                            <span>URL</span>
+                          </button>
+                        </mat-menu>
+                      </div>
+
+                      <input #inputFileSwagger type="file" name="file" [style.display]="'none'" ng2FileSelect
+                        [uploader]="uploader" (change)="importSwaggerOnExistingContainer()">
+
+                      <div class="float-md-left float-sm-left">
+                        <button mat-button style="background-color:  #002659; color: white;" class="btn-w-md cobtn"
+                          (click)="openImportProjectModal(container.id)">
+                          <mat-icon>create_new_folder</mat-icon>
+                          &nbsp; <span translate class="hidden-md-down">actions.importProject</span>
+                        </button>
+                      </div>
+
+                      <div class="float-md-left float-sm-left">
+                        &nbsp;
+                        <button mat-button style="background-color:  #002659; color: white;" class="btn-w-md cobtn"
+                          (click)="openHierarchyModal()">
+                          <mat-icon>
+                            filter_list
+                          </mat-icon>
+                          &nbsp; <span translate class="hidden-md">container.showFiles</span>
+                        </button>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <!-- Upload Resources -->
+
+
+                </div>
+                <section class="container-fluid" style="margin-top:-30px">
+                  <app-resource-group></app-resource-group>
+                </section>
+              </mat-tab>
+
+            </div>
+          </mat-tab-group>
+        </div>
+        <div style="text-align:center" *ngIf="!hideIfEmpty()" translate>container.noContainers</div>
+      </div>
+    </div>
+  </div>
+</article>

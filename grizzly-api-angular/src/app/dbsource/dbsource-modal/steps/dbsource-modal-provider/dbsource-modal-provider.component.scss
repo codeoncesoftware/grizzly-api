@@ -1,0 +1,31 @@
+button {
+  cursor: pointer;
+}
+
+button.mat-primary {
+  background-color: #002659;
+}
+
+.dbContainer {
+  height: 50vh;
+  position: relative;
+}
+
+.mat-slide-toggle {
+  text-align: left;
+}
+
+.item-card-selected {
+  border: 2px solid skyblue;
+}
+
+img {
+  height: 100px;
+  padding: 5px;
+}
+
+.step-buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

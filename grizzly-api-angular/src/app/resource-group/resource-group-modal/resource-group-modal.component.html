@@ -1,0 +1,51 @@
+<form name="form" #f="ngForm">
+  <!-- Header -->
+  <h1 mat-dialog-title style="text-align:center" translate>{{ data.action.msg }}</h1>
+
+  <!-- Content -->
+  <div mat-dialog-content class="row">
+    <mat-form-field class="col-md-12">
+      <input matInput placeholder="Name" [(ngModel)]="resourceGroup.name" #groupType="ngModel" name="groupType"
+        pattern="^[^\s]+(\s+[^\s]+)*$" value="data?.resourceGroup?.name" required="true" (keyup)="onInput()"
+        (keyup.enter)="validateGroup(resourceGroup)">
+    </mat-form-field>
+
+    <!-- ERRORS -->
+    <div *ngIf="groupType?.errors?.required && groupType?.touched">
+      <ul class="error">
+        <li translate>popups.group.errors.null</li>
+      </ul>
+    </div>
+
+    <div *ngIf="groupType?.errors?.pattern">
+      <ul class="error">
+        <li translate>popups.group.errors.pattern
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="!unique">
+      <ul class="error">
+        <li translate>popups.group.errors.unicity</li>
+      </ul>
+    </div>
+
+    <mat-form-field class="col-md-12">
+      <textarea matInput placeholder="This is a description for this group of APIs" rows="10"
+        [(ngModel)]="resourceGroup.description" name="group"></textarea>
+    </mat-form-field>
+
+    <!-- Footer -->
+    <div class="box-body text-right">
+      <button mat-raised-button (click)="dialogRef.close()" class="btn-w-md"><span
+          translate>popups.buttons.cancel</span></button>
+      <span class="space"></span>
+      <button (click)="validateGroup(resourceGroup)" mat-raised-button id="confirm" type="submit" color="primary"
+        class="btn-w-md" [disabled]="f.form.invalid || !unique">
+        <span translate>popups.buttons.confirm</span></button>
+    </div>
+
+
+  </div>
+
+</form>

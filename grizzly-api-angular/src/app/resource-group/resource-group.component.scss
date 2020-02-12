@@ -1,0 +1,20 @@
+button:focus i {
+  transition: all 0.2s linear;
+  background-color: transparent;
+}
+
+.flip {
+    transform: rotate(180deg);
+}
+
+.green {
+  color: #49CC90;
+}
+
+button {
+  cursor: pointer;
+}
+
+button.mat-primary{
+  background-color: #002659;
+}

@@ -1,0 +1,40 @@
+
+button {
+  cursor: pointer;
+}
+
+button.mat-primary{
+  background-color: #002659;
+}
+.full-screen-modal .mat-dialog-container {
+  max-width: none;
+}
+.get:disabled {
+  background-color: #61AFFE;
+  color: white;
+}
+.post:disabled {
+  background-color: #49CC90;
+  color: white;
+}
+.put:disabled {
+  background-color: #FCA130;
+  color: white;
+
+}
+.delete:disabled {
+  background-color: #F93E3E;
+  color: white;
+}
+.patch:disabled {
+  background-color: #50E3C2;
+  color: white;
+}
+.head:disabled {
+  background-color: #9012FE;
+  color: white;
+}
+.options:disabled {
+  background-color: #0D5AA7;
+  color: white;
+}

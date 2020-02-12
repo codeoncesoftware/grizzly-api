@@ -1,0 +1,75 @@
+<app-loader></app-loader>
+
+<div class="example-container mat-elevation-z1" *ngIf="group?.resources?.length > 0" style="margin-top:10px">
+  <mat-table #table [dataSource]="group.resources" cdkDropList [cdkDropListData]="group.resources"
+    (cdkDropListDropped)="dropTable($event)">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="Check">
+      <mat-header-cell *matHeaderCellDef>{{ group.name !== 'Authentication Grizzly' ? 'Check' : '' }}</mat-header-cell>
+      <mat-cell *matCellDef="let element, let i = index">
+        <mat-checkbox *ngIf="group.name !== 'Authentication Grizzly'"
+          id="{{group.name.concat('#',element.path,'#',element.httpMethod)}}" (click)="checkResource(element,group)"
+          #myCheckBoxs></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="Method">
+      <mat-header-cell *matHeaderCellDef>Method </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-button style="width: 50%" [ngClass]="{post: element.httpMethod == 'POST', 
+          put: element.httpMethod == 'PUT', 
+          get: element.httpMethod == 'GET', 
+          delete: element.httpMethod == 'DELETE',
+          patch: element.httpMethod == 'PATCH',
+          head: element.httpMethod == 'HEAD',
+          options: element.httpMethod == 'OPTIONS'
+          }" disabled>{{element.httpMethod}}</button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="File Uri">
+      <mat-header-cell *matHeaderCellDef> Path </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.path}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Type">
+      <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.executionType }} </mat-cell>
+    </ng-container>
+
+
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Actions">
+      <mat-header-cell *matHeaderCellDef style="justify-content:center"> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let element, let i = index" style="justify-content:center ; cursor: pointer">
+        <mat-icon matTooltip="{{ 'api.edit' | translate }}" (click)="openResourceEditModal(element, i)"
+          *ngIf="group.name !== 'Authentication Grizzly'">edit</mat-icon>
+        <mat-icon matTooltip="{{ 'api.copy' | translate}}" (click)="copyAPIURL(element)">file_copy</mat-icon>
+        <mat-icon matTooltip="{{element.securityLevel}}">
+          {{element.securityLevel[0] !== 'public'  ? 'lock' : 'lock_open' }}
+        </mat-icon>
+        <mat-icon (click)="infoApi(element)" matTooltip="How to use it"
+          *ngIf="(group.name == 'Authentication Grizzly') && (i >= 4)">help</mat-icon>
+        <button mat-icon-button [disabled]="checkResourceState(element)" *ngIf="element.executionType !== 'Query'">
+          <mat-icon matTooltip="{{executeMessage(element)}}" (click)="execute(element)">build</mat-icon>
+        </button>&nbsp;
+
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row cdkDrag [cdkDragData]="row" *matRowDef="let row; columns: displayedColumns;"
+      [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+      (mouseout)="row.hovered = false"></mat-row>
+  </mat-table>
+</div>
+
+<div *ngIf="group?.resources?.length == 0" style="text-align: center">
+  <hr>
+  <span translate>resource.noResources</span>
+</div>

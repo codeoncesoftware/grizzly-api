@@ -1,0 +1,84 @@
+<div class="container dbContainer">
+  <form>
+    <div class="article">
+      <div class="row">
+        <div class="col-xl-3">
+          <div (click)="dbSource.provider='mongo'" [ngClass]="{'item-card-selected': dbSource.provider==='mongo'}"
+            class="item-card">
+            <a href="javascript:;">
+              <div class="img">
+                <img src="assets/images/db/mongodb.png" alt="Mongo DB">
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3">
+          <div [ngClass]="{'item-card-selected': dbSource.provider==='marklogic'}" class="item-card">
+            <div class="img">
+              <img src="assets/images/db/marklogic.png" alt="Mark Logic">
+              <p style="font-size: 10px" translate="">comingSoon</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3">
+          <div [ngClass]="{'item-card-selected': dbSource.provider==='ElasticSearch'}" class="item-card">
+            <div class="img">
+              <img src="assets/images/db/elasticsearch.png" alt="ElasticSearch">
+              <p style="font-size: 10px" translate>comingSoon</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3">
+          <div [ngClass]="{'item-card-selected': dbSource.provider==='couchedb'}" class="item-card">
+            <div class="img">
+              <img src="assets/images/db/couchdb.png" alt="Couch DB">
+              <p style="font-size: 10px" translate>comingSoon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box box-default">
+        <div class="divider"></div>
+        <div class="row">
+          <div class="col-12">
+            <span translate
+              style="text-align: left; float: left; font-weight: bold;">&nbsp;&nbsp;&nbsp;dbsource-modal-provider.connection</span>
+            <mat-radio-group class="mat-radio-group-spacing" [(ngModel)]="dbSource.connectionMode"
+              name="connectionMode">
+              <mat-radio-button value="FREE" *ngIf="dbSource.provider!=='marklogic'"><span translate>
+                  dbsource-modal-provider.free</span></mat-radio-button>
+              <mat-radio-button value="ON-PREMISE"><span translate> dbsource-modal-provider.onpremise</span>
+              </mat-radio-button>
+              <mat-radio-button value="CLOUD"><span translate> dbsource-modal-provider.cloud</span></mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="divider"></div>
+      </div>
+
+      <div class="row" *ngIf="dbSource.connectionMode==='FREE'">
+        <p>
+          <em class="material-icons" style="vertical-align: middle"> info </em> <span translate>
+            dbsource-modal-provider.info1</span>
+        </p>
+      </div>
+      <div class="row" *ngIf="dbSource.connectionMode==='CLOUD' && dbSource.provider==='mongo'">
+        <p>
+          <i class="material-icons" style="vertical-align: middle"> info </i>
+          <span translate> dbsource-modal-provider.info2</span>
+        </p>
+      </div>
+    </div>
+
+
+  </form>
+
+  <div class="box-body step-buttons text-right">
+    <span class="space"></span>
+    <button matStepperNext mat-raised-button color="primary" class="btn-w-md"
+      [disabled]="!dbSource.provider || !dbSource.connectionMode"><span translate>
+        dbsource-modal-provider.next</span></button>
+  </div>
+  
+</div>

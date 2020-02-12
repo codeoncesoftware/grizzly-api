@@ -1,0 +1,11 @@
+<h2 mat-dialog-title translate>{{data.title}}</h2>
+
+<mat-dialog-content>
+  <span>{{ data.message | translate: data.params}}</span>
+</mat-dialog-content>
+
+<div class="box-body text-right">
+  <button mat-raised-button mat-dialog-close class="btn-w-md"><span translate>popups.buttons.cancel</span></button>
+  <span class="space"></span>
+  <button mat-raised-button [ngClass]="{'hidden': data.params.hideConfirm === true}" [mat-dialog-close]="true" color="primary" class="btn-w-md"><span translate>popups.buttons.confirm</span></button>
+</div>

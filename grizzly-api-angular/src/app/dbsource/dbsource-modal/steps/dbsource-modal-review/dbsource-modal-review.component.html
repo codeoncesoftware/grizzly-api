@@ -1,0 +1,45 @@
+<div class="container dbContainer">
+
+  <form>
+    <div class="box box-default">
+      <div class="box-header" style="text-align: left"><span translate> dbsource-modal-review.review</span></div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div style="text-align: left"><span translate> dbsource-modal-review.datasource</span> {{dbSource.name}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div style="text-align: left" [ngSwitch]="dbSource.connectionMode">
+            <div *ngSwitchCase="'FREE'">
+              <span><span translate> dbsource-modal-review.database</span> {{dbSource.database}}</span>
+            </div>
+            <div *ngSwitchCase="'CLOUD'">
+              <span><span translate> dbsource-modal-review.mongo</span> {{dbSource.uri}}</span>
+            </div>
+            <div *ngSwitchDefault>
+              <span> <span translate> dbsource-modal-review.connection</span> {{dbSource.host}}:{{dbSource.port}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <mat-error *ngIf="!unicity">
+
+      <span translate> dbsource-modal-review.unicity</span>
+
+    </mat-error>
+
+  </form>
+
+  <div class="box-body step-buttons text-right">
+    <button matStepperPrevious mat-raised-button class="btn-w-md"><span translate>popups.buttons.back</span></button>
+    <span class="space"></span>
+    <button (click)="onSave()" matStepperNext mat-raised-button color="primary" class="btn-w-md">
+      {{dbSource.connectionMode === 'FREE' && mode === 0 ? 'Create Database' : 'Save'}}
+    </button>
+  </div>
+
+</div>

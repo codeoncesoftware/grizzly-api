@@ -1,0 +1,52 @@
+<app-loader></app-loader>
+<div class="container-fluid" style="text-align: center;height:65vh;position: relative;">
+  <span style="position: absolute; top: 0; right: 0;">
+    <button mat-button (click)="dialogRef.close()">
+      <mat-icon>clear</mat-icon><span translate>dbsource-modal.cancel</span>
+    </button>
+  </span>
+  <!-- Modal Section START -->
+  <h1 mat-dialog-title><span translate>{{ data.mode === 0 ? 'dbsource-modal.add' : 'dbsource-modal.update' }}</span>
+  </h1>
+  <div>
+
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step *ngIf="data.mode === 0" [completed]="isStepCompleted(1)">
+        <ng-template matStepLabel>
+          <span translate>dbsource-modal.select</span>
+        </ng-template>
+        <div class="divider divider-md"></div>
+        <app-dbsource-modal-provider [dbSource]="dbSource"></app-dbsource-modal-provider>
+      </mat-step>
+      <mat-step [completed]="isStepCompleted(2)">
+        <ng-template matStepLabel>
+          <span translate>dbsource-modal.fill</span>
+        </ng-template>
+        <div class="divider divider-md"></div>
+        <div [ngSwitch]="dbSource.connectionMode">
+          <div *ngSwitchCase="'FREE'">
+            <app-dbsource-modal-free [dbSource]="dbSource"></app-dbsource-modal-free>
+          </div>
+          <div *ngSwitchCase="'CLOUD'">
+            <app-dbsource-modal-cloud-connection [dbSource]="dbSource" (checkConnection)="checkConnection($event)">
+            </app-dbsource-modal-cloud-connection>
+          </div>
+          <div *ngSwitchDefault>
+            <app-dbsource-modal-direct-connection [dbSource]="dbSource" (checkConnection)="checkConnection($event)">
+            </app-dbsource-modal-direct-connection>
+          </div>
+        </div>
+
+      </mat-step>
+      <mat-step [completed]="false">
+        <ng-template matStepLabel><span translate>dbsource-modal.review</span></ng-template>
+        <div class="divider divider-md"></div>
+        <app-dbsource-modal-review [dbSource]="dbSource" [mode]="data.mode" [unicity]="unicity"
+          (save)="createNewDataSource()">
+        </app-dbsource-modal-review>
+      </mat-step>
+    </mat-horizontal-stepper>
+
+  </div>
+
+</div>

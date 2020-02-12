@@ -1,0 +1,193 @@
+<section class="container-fluid">
+    <!-- Show a Project Details Section START -->
+    <article class="article">
+        <br>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="box" style="box-shadow: none">
+                    <div class="box-header project-header radius-top">
+                        <span translate>settings.user</span>
+                        <span style="flex: 1 1 auto;"></span>
+                    </div>
+
+                    <div class="box-body radius-bottom" style="background-color: #FFF;">
+                        <form [formGroup]="userForm" name="form">
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <input required matInput type="text" name="firstName" formControlName="firstName"
+                                        placeholder="{{'settings.placeholder.first' |translate}}"
+                                        [(ngModel)]="user.firstName" [readonly]="formLocked">
+                                    <mat-icon matSuffix class="material-icons">perm_identity</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <input required matInput type="text" name="lastName" formControlName="lastName"
+                                        placeholder="{{'settings.placeholder.last' |translate}}"
+                                        [(ngModel)]="user.lastName" [readonly]="formLocked">
+                                    <mat-icon matSuffix class="material-icons">perm_identity</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <input readonly="true" required matInput type="text" name="username" #username
+                                        formControlName="username" placeholder="Username" [(ngModel)]="user.username">
+                                    <mat-icon matSuffix class="material-icons" style="cursor: pointer"
+                                        matTooltip="The username cannot be changed">lock</mat-icon>
+                                    <mat-icon matSuffix class="material-icons">mail_outline</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <label for="phone" style="color: #757575"><span
+                                            translate>settings.phone</span></label> &nbsp; <input required matInput
+                                        type="phone-select" name="phone" formControlName="phone"
+                                        [(ngModel)]="user.phone" (input)="log()" #phoneSelect="ngx-phone-select"
+                                        ngxPhoneSelect [readonly]="formLocked">
+                                    <mat-icon matSuffix class="material-icons">phone</mat-icon>
+                                    <mat-error *ngIf="validPhoneNumber">
+                                        <span translate>settings.valid</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <input matInput type="text" name="organization"
+                                        placeholder="{{'settings.placeholder.org' |translate}}"
+                                        formControlName="organization" [(ngModel)]="user.organization"
+                                        [readonly]="formLocked">
+                                    <mat-icon matSuffix class="material-icons">home</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="alert alert-success" *ngIf="updateSuccess">
+                                <span translate>settings.thanks</span>
+                                <span> {{user.firstName}} </span>
+                                <span translate>settings.profile</span>
+                            </div>
+                            <div class="alert alert-danger" *ngIf="exists">
+                                <span translate>settings.notvalid</span>
+                            </div>
+                            <div class="alert alert-danger" *ngIf="!validPhoneNumber">
+                                <span translate>settings.number</span>
+                            </div>
+
+                            <div class="divider divider-md"></div>
+                            <button mat-raised-button type="submit" color="primary" class="float-right"
+                                (click)="updateProfile()" *ngIf="!formLocked" [disabled]="userForm.invalid">
+                                <span translate>settings.confirmBtn</span>
+                            </button>
+
+                            <button mat-raised-button type="submit" color="primary" class="float-right"
+                                (click)="cancelUpdate()" *ngIf="!formLocked" [disabled]="userForm.invalid"
+                                style="margin-right: 10px">
+                                <span translate>settings.cancelBtn</span>
+                            </button>
+
+                            <button mat-raised-button type="submit" color="primary" class="float-right"
+                                (click)="unlockForm()" *ngIf="formLocked" [disabled]="userForm.invalid">
+                                <span translate>settings.unlockBtn</span>
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <button mat-raised-button type="input" color="primary" (click)="togglePwdSection()"><span
+                translate>{{ show ? 'settings.placeholder.hideChangeBtn' : 'settings.placeholder.showChangeBtn'}}</span></button>
+
+        <div class="divider divider-md"></div>
+
+        <div class="row" *ngIf="show">
+            <div class="col-xl-12">
+                <div class="box" style="box-shadow: none">
+                    <div class="box-header project-header radius-top">
+                        <span translate>settings.change</span>
+                        <span style="flex: 1 1 auto;"></span>
+                    </div>
+
+                    <div class="box-body radius-bottom" style="background-color: #FFF;">
+                        <form [formGroup]="pwdForm" action="">
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width no-margin-bottom">
+                                    <input matInput type="password" name="oldPassword" formControlName="oldPassword"
+                                        [type]="hideOldPassword ? 'text' : 'password'"
+                                        placeholder="{{'settings.placeholder.current' |translate}}"
+                                        [(ngModel)]="oldPassword">
+                                    <mat-icon matSuffix (click)="hideOldPassword = !hideOldPassword"
+                                        style="cursor: pointer">
+                                        {{hideOldPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <mat-error *ngIf="userForm.hasError('required', 'oldPassword')">
+                                        <span translate>settings.password</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width no-margin-bottom">
+                                    <input matInput [type]="hidePassword ? 'text' : 'password'" name="password"
+                                        formControlName="password"
+                                        placeholder="{{'settings.placeholder.new' |translate}}"
+                                        [(ngModel)]="newPassword">
+                                    <mat-icon matSuffix (click)="hidePassword = !hidePassword" style="cursor: pointer">
+                                        {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <mat-error *ngIf="userForm.hasError('required', 'password')">
+                                        <span translate>settings.enter</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width no-margin-bottom">
+                                    <input matInput type="password" name="confirmPassword"
+                                        formControlName="confirmPassword"
+                                        placeholder="{{'settings.placeholder.confirm' |translate}}"
+                                        [type]="hideConfirmPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword"
+                                        [errorStateMatcher]="matcher">
+                                    <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                                        style="cursor: pointer">
+                                        {{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <mat-error *ngIf="pwdForm.hasError('notSame')">
+                                        <span translate>settings.match</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="alert alert-success" *ngIf="pwdUpdated">
+                                        <span translate>settings.thanks</span>
+                                        <span> {{user.firstName}} </span>
+                                        <span translate>settings.pwdUpdate</span>
+                                    </div>
+
+                                    <div class="alert alert-danger" *ngIf="error">
+                                        <span translate>settings.notvalid</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <button mat-raised-button type="submit" color="primary" class="float-right"
+                                        (click)="updatePassword()" [disabled]="pwdForm.invalid">
+                                        <span translate>settings.confirmBtn</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </article>
+</section>

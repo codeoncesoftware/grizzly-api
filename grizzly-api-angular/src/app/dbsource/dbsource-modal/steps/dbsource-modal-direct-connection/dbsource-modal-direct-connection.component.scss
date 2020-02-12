@@ -1,0 +1,18 @@
+button {
+  cursor: pointer;
+}
+
+button.mat-primary {
+  background-color: #002659;
+}
+
+.dbContainer {
+  height: 50vh;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.step-buttons {
+  bottom: 0;
+  right: 0;
+}

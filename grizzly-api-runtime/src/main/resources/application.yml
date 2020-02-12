@@ -1,0 +1,83 @@
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
+        security: INFO
+        data.mongodb: DEBUG
+      mongodb.driver: INFO
+    fr:
+      codeonce: DEBUG
+server:
+  port: 8040
+
+spring:
+  application:
+    name: grizzly-api-runtime
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+  data:
+    mongodb:
+      database: grizzly-api
+      uri: mongodb://localhost:27017/grizzly-api
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB      
+  #SMTP Configuration
+  mail:
+    host: <HOST>
+    port: 000
+    username: <USERNAME>
+    password: <PASSWORD>
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls:
+            enable: true
+            trust: <TRUST>
+          ssl:
+            trust: <TRUST>
+    from: <FROM>
+    personal: <PERSONAL>
+    
+core:
+  oauth2:
+    client_id: mMKBdsIgpC9prxBwgd6V
+    client_secret: QzNmrG57pQpt5B9azA01
+    grant_type: password #authorization_code,refresh_token,password,implicit
+    scope: read # read,write
+    token_validity: 36000
+    refresh_token_validity: 36000
+    jwt_key: I8opCRdidwqvG6F7xqGQ
+    url : http://localhost:8090
+
+
+app:
+  cache: #https://github.com/ben-manes/caffeine/wiki/Eviction
+    maximumSize:  200
+    expireAfterAccess: 7
+    timeUnit: DAYS
+    containerloadingPolicy:  NEWEST
+  saxon:
+    hasLicense: false
+    
+frontUrl: http://localhost:4200
+           
+resource-url : ./target/classes/transformation.zip
+
+encrypt:
+ key: b66ee2a63379d2283e7612ce2e797d08
+
+offres:
+  free:
+    msCount: 3
+    maxStorage: 300000
+  premium:
+    msCount: 20
+    maxStorage: 5000000

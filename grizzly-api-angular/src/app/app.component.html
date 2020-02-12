@@ -1,0 +1,12 @@
+<div myPreloader class="preloaderbar hide"><span class="bar"></span></div>
+<div id="app-main" class="app-main full-height"
+   [ngClass]="{'fixed-header' : AppConfig.fixedHeader,
+               'nav-collapsed' : AppConfig.navCollapsed,
+               'nav-behind' : AppConfig.navBehind,
+               'layout-boxed' : AppConfig.layoutBoxed,
+               'theme-gray' : AppConfig.theme == 'gray',
+               'theme-dark' : AppConfig.theme == 'dark',
+               'sidebar-sm' : AppConfig.sidebarWidth == 'small',
+               'sidebar-lg' : AppConfig.sidebarWidth == 'large'}">
+  <router-outlet></router-outlet>
+</div>

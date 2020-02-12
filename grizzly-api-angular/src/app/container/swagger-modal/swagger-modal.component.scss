@@ -1,0 +1,72 @@
+.badge {
+    font-size: 10px;
+    font-weight: 100;
+    vertical-align: top;
+    background-color: #B8BCC4;
+    border-radius: 20px;
+    padding: 5px;
+    color: white;
+}
+
+.badge2 {
+    font-size: 10px;
+    font-weight: 100;
+}
+
+.click {
+    color: #0000FF;
+    cursor: pointer;
+}
+
+.cobtn {
+    background-color:  #002659; 
+    color: white;
+}
+
+.closeBtn {
+    position:absolute; 
+    top:0; 
+    right:0;
+}
+
+.copyContent {
+    font-size: 14px;
+    transition: all 0.3s linear;
+}
+
+.copyContent:hover {
+    color: green;
+    cursor: pointer;
+}
+
+.container-fluid {
+    text-align: left;
+    height:65vh;
+    position: relative;
+}
+
+.marginTop {
+    margin-top: 4px;
+}
+
+.grizzly-link {
+    color: grey;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+mat-expansion-panel {
+    padding: 10px;
+    margin: 10px;
+}
+
+.titleShare {
+    font-weight: 500;
+    font-size: 15px;
+}

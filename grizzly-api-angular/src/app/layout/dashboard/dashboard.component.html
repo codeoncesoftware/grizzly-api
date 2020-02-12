@@ -1,0 +1,84 @@
+<div class="container-fluid no-breadcrumbs page-dashboard">
+
+  <div class="row">
+    <div class="col-xl-3 col-sm-6">
+      <div class="box box-default">
+        <div class="box-top">
+          <em class="material-icons color-success">all_inbox</em>
+        </div>
+        <div class="box-info">
+          <span translate>dashboard.totalStored</span>
+        </div>
+        <div class="box-bottom">
+          <span>{{analyticsData.data?.totalStored}} KB</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+      <div class="box box-default">
+        <div class="box-top">
+          <em class="material-icons color-info">cloud_done</em>
+        </div>
+        <div class="box-info">
+          <span translate>dashboard.dataStored</span>
+        </div>
+        <div class="box-bottom">
+          <span>{{analyticsData.data?.storedContent}} KB</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+      <div class="box box-default">
+        <div class="box-top">
+          <em class="material-icons color-warning">cloud_done</em>
+        </div>
+        <div class="box-info">
+          <span translate>dashboard.fileStored</span>
+        </div>
+        <div class="box-bottom">
+          <span>{{analyticsData.data?.storedFile}} KB </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+      <div class="box box-default">
+        <div class="box-top">
+          <em class="material-icons color-danger">local_shipping</em>
+        </div>
+        <div class="box-info">
+          <span translate>dashboard.requestCount</span>
+        </div>
+        <div class="box-bottom">
+          <span>{{analyticsData.requestCount}} </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-default">
+    <div class="box-body padding-lg">
+      <div class="row">
+        <div class="col-xl-6">
+          <div class="box box-transparent">
+            <div class="box-heading" style="text-align: center"><span translate>dashboard.apiCount</span></div>
+            <div class="box-body">
+              <div *ngIf="analyticsData.apiCounts" myECharts [EChartsOptions]="apiCountChart" style="height: 300px;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6">
+          <div class="box box-transparent">
+            <div class="box-heading" style="text-align: center"><span translate>dashboard.usedData</span></div>
+            <div class="box-body">
+              <div *ngIf="analyticsData.apiCounts" myECharts [EChartsOptions]="dataChart" style="height: 300px;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

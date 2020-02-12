@@ -1,0 +1,49 @@
+<section class="app-header">
+  <div class="app-header-inner headerbar">
+
+    <div class="d-lg-none d-xl-none float-left">
+      <button mat-button myToggleOffcanvasNav class="md-button header-icon toggle-sidebar-btn">
+        <em class="material-icons">menu</em>
+      </button>
+    </div>
+
+    <div class="brand d-none d-lg-inline-block d-xl-inline-block">
+      <h2><a [routerLink]="['/app/dashboard']">{{AppConfig.brand}}</a></h2>
+    </div>
+
+    
+
+    <div class="top-nav-right">
+      <ul class="list-unstyled float-right">
+
+        <li>
+              <div *ngIf="firstName && lastName" class="md-button header-btn">
+                  <span translate>header.welcome</span>&nbsp; {{ firstName }} {{ lastName }}
+              </div>
+        </li>
+      
+        <li>
+            <button mat-button [matMenuTriggerFor]="menu" class="md-button header-btn">
+              <span *ngIf="!isFr" class="flag-icon flag-icon-fr"> </span><span *ngIf="isFr" class="flag-icon flag-icon-gb"></span> 
+             {{selectedLanguage}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item *ngIf="isFr" (click)="setLang('fr')"><span class="flag-icon flag-icon-fr"></span> FR</button>
+              <button mat-menu-item *ngIf="!isFr" (click)="setLang('en')"><span class="flag-icon flag-icon-gb"></span> EN</button>
+            </mat-menu>
+        </li>
+        <li>
+          <a mat-button class="md-button header-btn" [routerLink]="['/app/settings']"><span class="fa fa-cog fa-lg"></span>&nbsp;
+            <span translate>header.settings</span>
+          </a>
+        </li>
+        <li>
+          <a mat-button class="md-button header-btn" (click)="logout()"><span class="fa fa-sign-out fa-lg"></span>&nbsp;
+            <span translate>header.logout</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+  </div>
+</section>

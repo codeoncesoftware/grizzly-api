@@ -1,0 +1,41 @@
+#copyFileBtn {
+  background-color: transparent;
+  border: none;
+  color: #002659;
+  opacity: 0.6
+}
+.type-icon {
+  color: #002659;
+  margin-right: 5px;
+}
+@keyframes slidein {
+  0%   {margin-left:1500px;}
+  100% {margin-left:0px;}
+}
+.note {
+  animation-name: slidein;
+  animation-duration: .9s;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+}
+
+button.mat-primary{
+  background-color: #002659;
+}
+
+.addBtn {
+  float: right;
+  color: white;
+  display: none;
+}
+
+mat-tree-node:hover .addBtn {
+  display: block;
+}
+
+input {
+  width: 100%;
+}

@@ -1,0 +1,48 @@
+logging:
+  level:
+    fr.codeonce: debug
+    org:
+      springframework:
+        cloud:
+          netflix: INFO
+    com.netflix: INFO
+
+zuul:  
+  ignore-security-headers: false
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin 
+  ignored-patterns:
+  - /gateway/** 
+  routes:
+    core:
+      sensitiveHeaders:
+      path: /api/**
+      service-id: grizzly-api-core
+      stripPrefix: false
+    runtime:
+      path: /runtime/**
+      service-id: grizzly-api-runtime
+      stripPrefix: false
+      
+grizzly-api-core:
+  ribbon:
+    ReadTimeout: 150000
+    ConnectTimeout: 150000
+
+    listOfServers: http://localhost:8090
+    
+grizzly-api-runtime:
+  ribbon:
+    ReadTimeout: 150000
+    ConnectTimeout: 150000
+    listOfServers: http://localhost:8040
+    
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB 
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8060
+  

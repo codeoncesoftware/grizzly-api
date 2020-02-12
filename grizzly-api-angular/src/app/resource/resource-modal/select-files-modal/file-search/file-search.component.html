@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row" *ngIf="files.length > 0">
+        <div class="col-md-6">
+            <form class="form-inline md-form form-sm active-cyan active-cyan-2 mt-2">
+
+                <div class=" divider divider-md"></div>
+
+                <mat-icon matPrefix class="material-icons">search</mat-icon>
+
+                <input class="form-control form-control-sm ml-3" name="searchValue" [(ngModel)]="searchValue"
+                    type="text" placeholder="Search" aria-label="Search" (input)="onSearchChange($event.target.value)">
+
+                <div class=" divider divider-md"></div>
+
+            </form>
+        </div>
+        <div class="col-md-6">
+            <span>
+                <button style="float: right" mat-stroked-button (click)="inputFile.click()" class="importBtn">
+                    <span translate>popups.search.import</span>
+                </button>
+            </span>
+
+            <input #inputFile type="file" name="file" [style.display]="'none'" ng2FileSelect [uploader]="uploader"
+                (change)="importFiles()">
+            &nbsp;
+        </div>
+    </div>
+
+
+    <div style="text-align: left; word-break: break-all;" class="box" *ngIf="results.length > 0 && !showTree">
+
+        <div class=" divider divider-md"></div>
+        <div class=" divider divider-md"></div>
+
+        <mat-selection-list #files>
+            <mat-list-option *ngFor="let file of results" (click)="selectFile(file)">
+                <span>
+                    {{ file.name }}
+                    <button mat-stroked-button class="addBtn" color="primary" (click)="selectFile(file)">Add</button>
+                </span>
+
+            </mat-list-option>
+        </mat-selection-list>
+
+        <div class=" divider divider-md"></div>
+        <div class=" divider divider-md"></div>
+
+    </div>
+
+    <div *ngIf="showTree">
+        <app-file-explorer #tree [activeContainer]="activecontainerId" [explorer]="2"
+            (notifySelected)="selectFile($event)" [showSelectBtn]="showTree">
+        </app-file-explorer>
+    </div>
+
+
+
+</div>

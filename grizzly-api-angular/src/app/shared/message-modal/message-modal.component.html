@@ -1,0 +1,65 @@
+<div>
+    <div class="messageBox-header"
+        [ngClass]="{'messageBox-error': mode === 0, 'messageBox-warning': mode === 1, 'messageBox-info': mode === 2 }">
+        <div class="container">
+            <div class="row padding">
+                <h5>
+                    <span>
+                        <em class="material-icons" style="vertical-align: middle;">
+                            <span *ngIf="mode === 0">error_outline</span>
+                            <span *ngIf="mode === 1">warning</span>
+                            <span *ngIf="mode === 2">info</span>
+                        </em>
+                        <span class="space"></span>
+                        <span class="space"></span>
+                    </span>
+                    <span translate>{{ data.title }}</span>
+                </h5>
+            </div>
+        </div>
+
+        <div class="padding messageBox-headerMessage">
+            <p>
+                <span translate>{{data.subtitle}}</span>
+            </p>
+        </div>
+        <div class="divider divider-md"></div>
+    </div>
+
+
+    <div class="messageBox-content">
+
+        <div class="container">
+            <div *ngIf="data.params && data.params.info">
+                <div class="divider divider-md"></div>
+
+                <div class="row">
+                    <p>
+                        <span translate>{{ data.params.info.msg }}</span>
+                    </p>
+                    <ul class="msgList">
+                        <li *ngFor="let info of data.params.info.infos">
+                            <span translate>{{ info }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <span translate>{{ data.message | translate: data.params }}</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="box-body text-right">
+        <button mat-raised-button [mat-dialog-close]="false" class="btn-w-md">
+            <span *ngIf="mode === 1" translate>popups.buttons.cancel</span>
+            <span *ngIf="mode !== 1" translate>popups.buttons.close</span>
+        </button>
+        <span class="space"></span>
+        <button *ngIf="mode === 1" [mat-dialog-close]="true" mat-stroked-button class="true confirmBtn btn-w-md">
+            <span translate>popups.buttons.confirm</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,146 @@
+<div class="container" style="height:65vh;position: relative;overflow: hidden;overflow-y: scroll;">
+  <!-- Modal Section START -->
+  <!-- Resource Name -->
+  <span style="position:absolute; top:0; right:0; cursor: pointer;">
+      <mat-icon (click)="dialogRef.close()" >clear</mat-icon> 
+  </span><br>
+  <h1 mat-dialog-title style="text-align: center"> Documentation : {{data.action.msg}} Endpoint </h1>
+  <hr>
+  <br>
+<!-- Activate API -->
+<div mat-dialog-content class="row" *ngIf="data.action.msg == '/activate'">
+  <strong translate>project.authDocumentation.curlRequest</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(curl)">file_copy</mat-icon>
+  <pre style="background-color: #EFF0F1;" #curl>
+
+  curl --header "Authorization: Bearer USE_YOUR_TOKEN_HERE" \
+  --header "Content-Type: application/json" \
+  --request POST \
+  {{baseUrl}}/runtime/{{containerId}}/activate?username=JohnDoe
+  </pre>
+  <strong translate>project.authDocumentation.angularExample</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(angular)">file_copy</mat-icon>
+  <pre style="background-color: #EFF0F1;" #angular>
+      
+  // Add the HttpClient in the constructor
+  constructor(private http: HttpClient) {{'{'}} {{'}'}}
+
+  // Declare the URL and the headers
+  const baseUrl = {{baseUrl}}/runtime/{{containerId}}/activate?username=JohnDoe;
+  
+  let headers = new HttpHeaders();
+  headers.set('Authorization', 'Bearer ' + USE_YOUR_TOKEN_HERE);
+
+  // Call the HTTP Request with your token in the headers
+  this.http.post(baseUrl, {{'{'}} headers {{'}'}});        
+  </pre>
+</div> 
+
+  <!-- Grant API -->
+  <div mat-dialog-content class="row" *ngIf="data.action.msg == '/grant'">
+    <strong translate>project.authDocumentation.curlRequest</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(curl)">file_copy</mat-icon>
+    <pre style="background-color: #EFF0F1;" #curl>
+
+    curl --header "Authorization: Bearer USE_YOUR_TOKEN_HERE" \
+    --header "Content-Type: application/json" \
+    --request PUT \
+    --data '{{'{'}}"roles":["ROLES_TO_AFFECT"]{{'}'}}' \
+    {{baseUrl}}/runtime/{{containerId}}/grant?username=JohnDoe
+    </pre>
+    <strong translate>project.authDocumentation.angularExample</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(angular)">file_copy</mat-icon>
+    <pre style="background-color: #EFF0F1;" #angular>
+        
+    // Add the HttpClient in the constructor
+    constructor(private http: HttpClient) {{'{'}} {{'}'}}
+  
+    // Declare the URL and the headers
+    const baseUrl = {{baseUrl}}/runtime/{{containerId}}/grant?username=JohnDoe;
+    const bodyContent = {{'{'}}"roles" : ["ROLES_TO_AFFECT"]{{'};'}}
+    
+    let headers = new HttpHeaders();
+    headers.set('Authorization', 'Bearer ' + USE_YOUR_TOKEN_HERE);
+  
+    // Call the HTTP Request with your token in the headers
+    this.http.put(baseUrl, bodyContent, {{'{'}} headers {{'}'}});        
+    </pre>
+  </div> 
+
+<!-- Update API -->
+<div mat-dialog-content class="row" *ngIf="data.action.msg == '/updateuser'">
+  <strong translate>project.authDocumentation.curlRequest</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(curl)">file_copy</mat-icon>
+  <pre style="background-color: #EFF0F1;" #curl>
+
+  curl --header "Authorization: Bearer USE_YOUR_TOKEN_HERE" \
+  --header "Content-Type: application/json" \
+  --request PUT \
+  --data '{{'{'}}"firstname": "John","lastname": "Doe","email": "john.doe@codeonce.fr","phone": "999999999"{{'}'}}' \
+  {{baseUrl}}/runtime/{{containerId}}/updateuser
+  </pre>
+  <strong translate>project.authDocumentation.angularExample</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(angular)">file_copy</mat-icon>
+  <pre style="background-color: #EFF0F1;" #angular>
+      
+  // Add the HttpClient in the constructor
+  constructor(private http: HttpClient) {{'{'}} {{'}'}}
+
+  // Declare the URL and the headers
+  const baseUrl = {{baseUrl}}/runtime/{{containerId}}/updateuser;
+  const bodyContent = '{{'{'}}firstname": "John","lastname": "Doe","email": "john.doe@codeonce.fr","phone": "999999999"{{'}'}}'
+  
+  let headers = new HttpHeaders();
+  headers.set('Authorization', 'Bearer ' + USE_YOUR_TOKEN_HERE);
+
+  // Call the HTTP Request with your token in the headers
+  this.http.put(baseUrl, bodyContent, {{'{'}} headers {{'}'}});        
+  </pre>
+</div> 
+
+
+<!-- Delete API -->
+<div mat-dialog-content class="row" *ngIf="data.action.msg == '/deleteuser'">
+  <strong translate>project.authDocumentation.curlRequest</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(curl)">file_copy</mat-icon>
+  <pre style="background-color: #EFF0F1;" #curl>
+
+  curl --header "Authorization: Bearer USE_YOUR_TOKEN_HERE" \
+  --header "Content-Type: application/json" \
+  --request DELETE \
+  {{baseUrl}}/runtime/{{containerId}}/deleteuser?username=JohnDoe
+  </pre>
+  <strong translate>project.authDocumentation.angularExample</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(angular)">file_copy</mat-icon>
+  <pre style="background-color: #EFF0F1;" #angular>
+      
+  // Add the HttpClient in the constructor
+  constructor(private http: HttpClient) {{'{'}} {{'}'}}
+
+  // Declare the URL and the headers
+  const baseUrl = {{baseUrl}}/runtime/{{containerId}}/deleteuser?username=JohnDoe;
+  
+  let headers = new HttpHeaders();
+  headers.set('Authorization', 'Bearer ' + USE_YOUR_TOKEN_HERE);
+
+  // Call the HTTP Request with your token in the headers
+  this.http.delete(baseUrl, {{'{'}} headers {{'}'}});        
+  </pre>
+</div> 
+
+<!-- Delete API -->
+<div mat-dialog-content class="row" *ngIf="data.action.msg == '/me'">
+  <strong translate>project.authDocumentation.curlRequest</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(curl)">file_copy</mat-icon>
+  <pre style="background-color: #EFF0F1;" #curl>
+
+  curl --request GET \
+  {{baseUrl}}/runtime/{{containerId}}/me
+  </pre>
+  <strong translate>project.authDocumentation.angularExample</strong>&nbsp; <mat-icon matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(angular)">file_copy</mat-icon>
+  <pre style="background-color: #EFF0F1;" #angular>
+      
+  // Add the HttpClient in the constructor
+  constructor(private http: HttpClient) {{'{'}} {{'}'}}
+
+  // Declare the URL and the headers
+  const baseUrl = {{baseUrl}}/runtime/{{containerId}}/me;
+  
+
+  // Call the HTTP Request with your token in the headers
+  this.http.get(baseUrl);        
+  </pre>
+</div> 
+
+</div>

@@ -1,0 +1,127 @@
+.advanced-btn {
+  color: #0082e4;
+}
+
+.advanced-section {
+  text-align: left;
+}
+
+.addBtn {
+  background-color: #002659;
+  color: white;
+}
+
+.box-size {
+  width: 60%;
+  max-width: 50px;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+button {
+  cursor: pointer;
+}
+
+button.mat-primary {
+  background-color: #002659;
+}
+
+.borderRight {
+  border-right: 1px solid grey;
+}
+
+#confirm {
+  position: relative;
+  margin: 0 auto;
+}
+
+.doc {
+  text-align: left;
+}
+
+.drop-zone {
+  background-color: #f6f6f6;
+  border: dotted 3px #dedddd;
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.file-input-container {
+  text-align: right;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  label {
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+}
+.nv-file-over {
+  border: dotted 3px red;
+}
+.parameters-list {
+  overflow: auto;
+  overflow-x: hidden;
+}
+.jsoneditor-menu {
+  display: none;
+  display: hidden;
+  height: 0px;
+}
+
+.dynamic-body {
+  margin-top: 30px;
+}
+
+:host ::ng-deep json-editor,
+:host ::ng-deep json-editor .jsoneditor,
+:host ::ng-deep json-editor > div,
+:host ::ng-deep json-editor jsoneditor-outer {
+  height: 100px;
+  border: none;
+}
+
+.selectBtn {
+  color: white;
+}
+
+#tableHead {
+  text-align: left;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.uploadBtn {
+  border: 1px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.mat-list {
+  padding: 0;
+}
+
+.mat-list .mat-list-item {
+  height: 25px; /* default is 72px */
+}

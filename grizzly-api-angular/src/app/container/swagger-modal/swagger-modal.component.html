@@ -1,0 +1,253 @@
+<app-loader></app-loader>
+
+<div class="container-fluid">
+
+    <div class="container">
+
+        <span class="closeBtn">
+            <button mat-button mat-dialog-close>
+                <mat-icon>clear</mat-icon> <span translate>api.close</span>
+            </button>
+        </span>
+
+        <div class="divider divider-md"></div>
+
+        <h4>{{ activeProject.name }} <span class="badge">{{ activeContainer.name }}</span></h4>
+        <p translate>
+            swaggerModal.descOpenApi
+        </p>
+        <p translate>
+            swaggerModal.afterConfig
+        </p>
+
+        <p>
+            <span translate>swaggerModal.swagFileJson</span> : 
+            <span class="grizzly-link">{{ swaggerBaseUrl }}</span>
+            &nbsp;&nbsp;
+            <span>
+                <em class="material-icons copyContent" (click)="copy(swaggerBaseUrl)">
+                    file_copy
+                </em>
+            </span>
+        </p>
+        <p>
+            <span translate>swaggerModal.serverUrl</span>
+            <span translate>{{ activeProject.name }}
+                <span class="badge2">{{ activeContainer.name }}</span> : 
+            </span>
+            <span class="grizzly-link">{{ containerServerUrl }}</span>
+            &nbsp;&nbsp;
+            <span>
+                <em class="material-icons copyContent" (click)="copy(containerServerUrl)">
+                    file_copy
+                </em>
+            </span>
+        </p>
+
+
+    </div>
+
+    <div class="divider divider-md"></div>
+
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header (click)="panelOpenState ? onExpand(0) : onCollapse(0)">
+
+                <div class="row" style="width: 100%">
+                    <div class="col-md-6">
+                        <mat-panel-title>
+                            <span>
+                                <img src="./../../../assets/images/techs/swagger.png" alt="Swagger Inspector Logo"
+                                    width="30">
+                            </span>
+                            &nbsp;
+                            <strong class="marginTop" translate>Swagger Inspector</strong>
+                        </mat-panel-title>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-panel-description>
+                            <span class="marginTop" style="float: right" translate>swaggerModal.inspectorDesc</span>
+                        </mat-panel-description>
+                    </div>
+                </div>
+
+            </mat-expansion-panel-header>
+
+            <div class="inspectorDoc">
+                <p translate>
+                    swaggerModal.inscpectorVerify
+                </p>
+                <p translate>
+                    swaggerModal.inspectorValidate
+                </p>
+
+            </div>
+
+            <div style="text-align: center" *ngIf="!showInspector">
+
+                <button mat-button class="btn-w-md cobtn" (click)="openInspector()">
+                    <mat-icon>explore</mat-icon>
+                    <span translate> &nbsp; Open Inspector</span>
+                </button>
+                &nbsp;
+
+            </div>
+
+            <div [ngStyle]="{'show': showInspector === true, 'hide': showInspector === false}">
+                <div class="swagger-container"></div>
+            </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header (click)="panelOpenState ? onExpand(1) : onCollapse(1)">
+
+                <div class="row" style="width: 100%">
+                    <div class="col-md-6">
+                        <mat-panel-title>
+                            <span>
+                                <img src="./../../../assets/images/techs/postman.png" alt="Postman Logo" width="30">
+                            </span>
+                            &nbsp;
+                            <strong class="marginTop">
+                                <span translate>
+                                    swaggerModal.postmanDesc
+                                </span>
+                            </strong>
+                        </mat-panel-title>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-panel-description>
+                            <span class="marginTop" style="float: right" translate>
+                                swaggerModal.executeLocal
+                            </span>
+                        </mat-panel-description>
+                    </div>
+                </div>
+
+            </mat-expansion-panel-header>
+            <p>
+                <span translate>
+                    swaggerModal.executeWays
+                </span> &nbsp;</p>
+
+            <mat-radio-group [(ngModel)]="postmanChoice">
+                <mat-radio-button [value]="1">
+                    <span translate>
+                        swaggerModal.json
+                    </span>
+                </mat-radio-button>
+                <br>
+                <mat-radio-button [value]="2">
+                    <span translate>
+                        swaggerModal.file
+                    </span>
+                </mat-radio-button>
+            </mat-radio-group>
+
+            <div class="divider divider-md"></div>
+
+            <div class="container">
+
+                <div *ngIf="postmanChoice === 1">
+                    <ol>
+                        <li>
+                            <span translate>
+                                swaggerModal.jsonStep1
+                            </span>
+                            <span class="click" (click)="copySwaggerJson()" translate>&nbsp; swaggerModal.click</span>
+                        </li>
+                        <li>
+                            <span translate>swaggerModal.jsonStep2</span>
+                        </li>
+                        <li>
+                            <span translate>swaggerModal.jsonStep3</span>
+                        </li>
+                        <li>
+                            <span translate>swaggerModal.jsonStep4</span>
+                        </li>
+                        <li>
+                            <span translate>swaggerModal.jsonStep5</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <div *ngIf="postmanChoice === 2">
+                    <ol>
+                        <li>
+                            <span translate>swaggerModal.downloadStep1</span>
+                            <span class="click" (click)="downloadGeneratedSwagger('prod')()">click here</span>
+                        </li>
+                        <li>
+                            <span translate>swaggerModal.downloadStep2</span>
+                        </li>
+                        <li>
+                            <span translate>swaggerModal.downloadStep3</span>
+                        </li>
+                        <li>
+                            <span translate>swaggerModal.downloadStep4</span>
+                        </li>
+                        <li>
+                            <span translate>swaggerModal.downloadStep5</span>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header (click)="panelOpenState ? onExpand(2) : onCollapse(2)">
+
+                <div class="row" style="width: 100%">
+                    <div class="col-md-6">
+                        <mat-panel-title>
+                            <span>
+                                <img src="./../../../assets/images/techs/share.png" alt="Swagger Inspector Logo"
+                                    width="30">
+                            </span>
+                            &nbsp;
+                            <strong class="marginTop">
+                                <span translate>swaggerModal.shareFile</span>
+                            </strong>
+                        </mat-panel-title>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-panel-description>
+                            <span class="marginTop" style="float: right" translate>swaggerModal.downloadShare</span>
+                        </mat-panel-description>
+                    </div>
+                </div>
+
+            </mat-expansion-panel-header>
+
+            <div>
+
+                <p translate>swaggerModal.shareTwoWays</p>
+
+                <p class="titleShare" translate>swaggerModal.withDevs</p>
+
+                <div class="inspectorDoc">
+                    <p translate>swaggerModal.devDesc</p>
+                    <p class="click" (click)="downloadGeneratedSwagger('dev')" translate>swaggerModal.forDev</p>
+                </div>
+
+
+                <p class="titleShare" translate>swaggerModal.withUsers</p>
+
+                <div class="inspectorDoc">
+                    <p translate>swaggerModal.usersDesc</p>
+                    <p class="click" (click)="downloadGeneratedSwagger('prod')" translate>swaggerModal.forProd</p>
+                </div>
+
+            </div>
+
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <div class="divider divider-md"></div>
+    <div class="divider divider-md"></div>
+
+</div>

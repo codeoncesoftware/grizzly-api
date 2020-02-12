@@ -1,0 +1,338 @@
+<section class="container-fluid">
+  <!-- Show a Project Details Section START -->
+  <article class="article">
+    <br>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="box" style="box-shadow: none" *ngIf="project.id">
+          <div class="box-header project-header radius-top"
+            [ngClass]="{'border-radius-bottom': toggleProjectDetails === true}">
+            <button mat-button (click)="showProjectDetails()" style="cursor:pointer">
+              <mat-icon class="material-icons">
+                {{toggleProjectDetails  ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
+              </mat-icon> &nbsp; {{ project?.name }} &nbsp;&nbsp;
+            </button>
+            <span style="flex: 1 1 auto;"></span>
+            <div style="float:right">
+              <mat-icon class="info" matTooltipClass="test" matTooltip="{{ 'project.creationTime' | translate}} : {{project?.creationTime |  date: 'M/d/yy, h:mm a'}} 
+              {{ 'project.lastUpdate' | translate }} : {{project?.lastUpdate | date: 'M/d/yy, h:mm a'}}">
+                info
+              </mat-icon>
+              <button mat-button (click)="openProjectModal()">
+                <mat-icon>edit</mat-icon>&nbsp;
+                <span translate>project.edit</span>
+              </button>&nbsp;
+              <button mat-button (click)="openConfirmDeleteDialog()">
+                <mat-icon>delete_forever</mat-icon>&nbsp;
+                <span translate>project.delete</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="box-body radius-bottom" style="background-color: #FFF;" [@slideUpDown]="toggleProjectDetails">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-card style="height: 100%">
+                  <div class="widget-container" style="margin-top: -20px; margin-bottom: -5px">
+                    <h5>Description </h5>
+                  </div>
+                  <div class="box-dark" id="description" style="border-radius: 6px; margin-bottom: -5px">
+                    <p>
+                      {{ project?.description }}
+
+                    </p>
+                    <div *ngIf="!project.description">
+                      <p translate>project.noDescription</p>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+              <div class="col-md-6">
+                <mat-card style="height: 100%">
+                  <div class="widget-container" style="margin-top: -20px; margin-bottom: -5px">
+                    <h5>Datasource </h5>
+                  </div>
+                  <div *ngIf="project.databaseName" style="position: relative">
+                    <p><span style="color: #002659"><strong>Datasource</strong></span> : {{ dataSourceName }}</p>
+                    <p><span style="color: #002659"><strong translate>project.datasource.database</strong></span> :
+                      {{ project.databaseName }}</p>
+                  </div>
+                  <div *ngIf="!project.databaseName">
+                    <p><span translate>project.select</span>
+                      <button mat-button style="background-color:  #002659; color: white" class="btn-w-sm cobtn"
+                        (click)="openProjectModal(1);">
+                        <span translate>Select</span>
+                      </button>
+                    </p>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <!-- Security Config -->
+              <div class="col-md-6">
+
+                <mat-card style="height: 100%;">
+                  <div class="widget-container" style="margin-top: -20px; margin-bottom: -5px">
+                    <h5 translate>project.security.config</h5>
+                  </div><br>
+                  <mat-tab-group mat-stretch-tabs>
+                    <!-- Token -->
+
+                    <mat-tab label="{{'project.security.tokenConfig' | translate}}">
+                      <br><br>
+                      <form [formGroup]="securityForm" name="form">
+
+                        <div class="form-group">
+                          <mat-form-field class="full-width">
+                            <input required matInput type="text" name="clientId" formControlName="clientId"
+                              placeholder="{{'project.security.clientId' | translate}}"
+                              [(ngModel)]="project.securityConfig.clientId">
+                            <mat-icon matSuffix class="material-icons">person</mat-icon>
+                            <mat-error *ngIf="securityForm.hasError('required', 'clientId')">
+                              <span translate>project.required</span>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="form-group">
+                          <mat-form-field class="full-width">
+                            <input required matInput [type]="hide ? 'text' : 'password'" name="clientSecret"
+                              formControlName="clientSecret" placeholder="{{'project.security.secretKey' | translate}}"
+                              [(ngModel)]="project.securityConfig.secretKey">
+                            <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">
+                              {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-icon matSuffix class="material-icons">lock</mat-icon>
+                            <mat-error *ngIf="securityForm.hasError('required', 'clientSecret')">
+                              <span translate>project.req</span>
+                            </mat-error>
+                            <mat-error *ngIf="securityForm.hasError('pattern', 'clientSecret')">
+                              <span translate>project.letters</span>
+                            </mat-error>
+                            <mat-error *ngIf="securityForm.hasError('minlength', 'clientSecret')">
+                              <span translate>project.64</span>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="form-group">
+                          <mat-form-field class="full-width">
+                            <input required matInput type="text" name="tokenExpiration"
+                              formControlName="tokenExpiration" placeholder="{{'project.security.token' | translate}}"
+                              [(ngModel)]="project.securityConfig.tokenExpiration">
+                            <mat-icon matSuffix class="material-icons">access_time</mat-icon>
+                            <mat-error *ngIf="securityForm.hasError('required', 'tokenExpiration')">
+                              <span translate>project.req</span>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <button mat-raised-button type="submit" color="primary" class="float-right btn-w-md"
+                          (click)="saveSecurityConfig()" [disabled]="securityForm.invalid"><span
+                            translate>project.security.save</span></button>
+                        <br>
+                      </form>
+                      <br>
+                      <strong translate>project.security.default</strong>
+                      <p translate>project.security.defaultDescription</p>
+                      <pre style="background-color: #EFF0F1;">
+
+    {{'{'}}
+        "firstname": "Administrator",
+        "username": "admin",
+        "password": "admin",
+        "roles": ["admin"]
+    {{'}'}}
+                      </pre>
+                    </mat-tab>
+                    <!-- Roles -->
+
+                    <mat-tab label="{{'project.security.manageRoles' | translate}}">
+                      <br>
+                      <div class="col-md-12">
+                        <mat-form-field class="col-md-6" style="float: left">
+                          <input matInput placeholder="{{'project.security.addRole' | translate}}" (keyup)="onInput()"
+                            [(ngModel)]="role" name="roleAdded">
+                        </mat-form-field>
+
+                        <div class="col-md-6" style="float: left">
+                          <button mat-stroked-button class="addBtn" (click)="addNewRole()">
+                            <mat-icon class="material-icons">add</mat-icon>&nbsp; <span
+                              translate>project.security.addRole</span>
+                          </button>
+                        </div>
+
+                      </div><br>
+
+                      <div *ngIf="project?.roles?.length > 0">
+                        <table class="mdl-data-table" style="width: 90%;">
+                          <thead>
+                            <tr>
+                              <th class="mdl-data-table__cell--non-numeric">Role</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let role of project?.roles; let i = index">
+                              <td class="mdl-data-table__cell--non-numeric">{{ role }} </td>
+                              <td>
+                                <button mat-button *ngIf="i === 0">
+                                  <em class="material-icons">
+                                    lock
+                                  </em></button>
+                                <button mat-button (click)="deleteRole(i)" *ngIf="i !== 0">
+                                  <em class="material-icons">
+                                    delete_outline
+                                  </em></button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="col-md-6" style="color: red" *ngIf="!unique" translate>project.security.roleExists
+                        </div>
+                      </div>
+                      <br>
+                      <div class="box-body text-right">
+                        <button (click)="confirmChoice()" mat-raised-button id="confirm" type="submit" color="primary"
+                          class="btn-w-md" [disabled]="!modified || !unique">
+                          <span translate>project.security.save</span></button>
+                      </div>
+
+
+
+                    </mat-tab>
+                  </mat-tab-group>
+
+                </mat-card>
+              </div>
+
+              <!-- Documentation -->
+              <div class="col-md-6">
+                <mat-card>
+                  <div class="widget-container" style="margin-top: -20px; margin-bottom: -5px">
+                    <h5 translate>project.authDocumentation.user</h5>
+                  </div>
+                  <br>
+                  <mat-tab-group mat-stretch-tabs style="height: 550px; overflow-y: scroll;">
+
+                    <mat-tab label="SignIn"><br>
+                      <p translate>project.authDocumentation.description1</p>
+                      <strong translate>project.authDocumentation.signinModal</strong>&nbsp; <mat-icon
+                        matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(signinModal)">file_copy
+                      </mat-icon>
+                      <pre style="background-color: #EFF0F1;" #signinModal>
+
+    {{'{'}}
+        "username":"string",
+        "password":"string"
+    {{'}'}}
+                      </pre>
+                      <strong translate>project.authDocumentation.curlRequest</strong>&nbsp; <mat-icon
+                        matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(signinCurl)">file_copy
+                      </mat-icon>
+                      <pre style="background-color: #EFF0F1;" #signinCurl>
+
+    curl --header "Content-Type: application/json" \
+    --request POST \
+    --data '{{'{'}}"username":"admin","password":"admin"{{'}'}}' \
+    {{baseUrl}}/runtime/{{containerId}}/signin  
+                          </pre>
+
+                      <strong translate>project.authDocumentation.angularExample</strong>&nbsp; <mat-icon
+                        matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(signinAngular)">file_copy
+                      </mat-icon>
+                      <pre style="background-color: #EFF0F1;" #signinAngular>
+
+    // Add the HttpClient in the constructor
+    constructor(private http: HttpClient) {{'{'}} {{'}'}}
+
+    // Declare the URL and the body content
+    const baseUrl = {{baseUrl}}/runtime/{{containerId}}/signin ;  
+    const bodyContent = {{'{'}}"username" : "admin", "password" : "admin"{{'};'}}
+
+    // Call the HTTP Request
+    this.http.post(baseUrl, bodyContent);             
+                              </pre>
+                      <strong translate>project.authDocumentation.response</strong>
+                      <p translate>project.authDocumentation.tokenNotice</p>
+                      <pre style="background-color: #EFF0F1;">
+
+    {{'{'}}
+      "token": 
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOlt7ImF1dGhvcml0eSI6ImFkbWluIn1dLCJpc3MiOiJ0ZXN0IiwiZXhwIjoxNTcxMTYxNjgyfQ.GTIl_7ch282MFLBZ8ywd_FXjz6rc6YUahm_TpXWS-Hw"
+    {{'}'}}
+                          </pre>
+                    </mat-tab>
+                    <mat-tab label="SignUp"><br>
+                      <p translate>project.authDocumentation.description2</p>
+                      <strong translate>project.authDocumentation.signupModal</strong>&nbsp; <mat-icon
+                        matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(signupModal)">file_copy
+                      </mat-icon>
+                      <p translate>project.authDocumentation.signupNotice</p>
+                      <pre style="background-color: #EFF0F1;" #signupModal>
+
+    {{'{'}}
+        "firstname": "string",
+        "lastname": "string",
+        "username": "string",
+        "password": "string",
+        "email": "string",
+        "phone": "string"
+    {{'}'}}
+                      </pre>
+                      <strong translate>project.authDocumentation.curlRequest</strong>&nbsp; <mat-icon
+                        matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(signupCurl)">file_copy
+                      </mat-icon>
+                      <pre style="background-color: #EFF0F1;" #signupCurl>
+
+    curl --header "Content-Type: application/json" \
+    --request POST \
+    --data '{{'{'}}"firstname": "John","lastname": "Doe","username": "JohnDoe","password": "myPassword","email": "john.doe@codeonce.fr","phone": "999999999"{{'}'}}' \
+    {{baseUrl}}/runtime/{{containerId}}/signup
+                            </pre>
+
+                      <strong translate>project.authDocumentation.angularExample</strong>&nbsp; <mat-icon
+                        matTooltip="Copy Code" style="cursor: pointer" (click)="copyText(signupAngular)">file_copy
+                      </mat-icon>
+                      <pre style="background-color: #EFF0F1;" #signupAngular>
+
+    // Add the HttpClient in the constructor
+    constructor(private http: HttpClient) {{'{'}} {{'}'}}
+
+    // Declare the URL and the body content
+    const baseUrl = {{baseUrl}}/runtime/{{containerId}}/signup ;  
+    const bodyContent = '{{'{'}}firstname": "John","lastname": "Doe","username": "JohnDoe","password": "myPassword","email": "john.doe@codeonce.fr","phone": "999999999"{{'}'}}'
+
+    // Call the HTTP Request
+    this.http.post(baseUrl, bodyContent);          
+                              </pre>
+                      <strong translate>project.authDocumentation.response</strong>
+                      <pre style="background-color: #EFF0F1;">
+
+        {{'{'}}
+          "firstname": "John",
+          "lastname": "Doe",
+          "username": "JohnDoe",
+          "password": "myPassword",
+          "email": "john.doe@codeonce.fr",
+          "phone": "999999999"
+          "_id": "xxxxxxxxxxxxxxxxxx"
+        {{'}'}}
+                              </pre>
+                    </mat-tab>
+                  </mat-tab-group>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+</section>
+<section class="container-fluid" *ngIf="project?.id">
+  <app-container [projectId]="project?.id"></app-container>
+</section>

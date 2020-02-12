@@ -1,0 +1,27 @@
+<div class="container dbContainer">
+
+  <form #dsFreeForm="ngForm">
+
+    <div class="box box-default">
+      <div class="box-header" style="text-align: left"><span translate>dbsource-modal-free.free</span></div>
+      <div class="box-body">
+        <div class="form-group">
+          <mat-form-field class="col-md-12">
+            <input matInput placeholder="{{'dbsource-modal-free.placeholder.dbname' |translate}}" required
+              [(ngModel)]="dbSource.database" #database="ngModel" name="database" (change)="setDbName()">
+            <mat-error *ngIf="database.touched && database.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="box-body step-buttons text-right">
+    <button matStepperPrevious mat-raised-button class="btn-w-md"><span translate>popups.buttons.back</span></button>
+    <span class="space"></span>
+    <button [disabled]="dsFreeForm.invalid" matStepperNext mat-raised-button color="primary"
+      class="btn-w-md"><span translate>popups.buttons.next</span></button>
+  </div>
+  
+</div>

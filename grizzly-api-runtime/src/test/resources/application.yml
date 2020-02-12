@@ -1,0 +1,44 @@
+spring:
+    profiles:
+        active:
+            - test
+    flyway:
+        enabled: false
+    data:
+        mongodb:
+            host: localhost
+            database: grizzly-api
+            uri: mongodb://localhost:27017/grizzly-api
+    mail:
+        from: "userMock"
+        personal: "Grizzly API"
+
+core:
+    oauth2:
+        client_id: mMKBdsIgpC9prxBwgd6V
+        client_secret: QzNmrG57pQpt5B9azA01
+        grant_type: password #authorization_code,refresh_token,password,implicit
+        scope: read # read,write
+        token_validity: 3600
+        refresh_token_validity: 3600
+        jwt_key: I8opCRdidwqvG6F7xqGQ
+        url: http://localhost:8090
+app:
+    saxon:
+        hasLicense: false
+
+frontUrl: http://localhost:4200
+coreUrl: http://localhost:8090
+
+resource-url: NO_NEEDED_FOR_RUNTIME
+
+encrypt:
+    key: test
+
+offres:
+    free:
+        msCount: 3
+        maxStorage: 300000
+    premium:
+        msCount: 20
+        maxStorage: 5000000

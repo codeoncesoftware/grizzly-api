@@ -1,0 +1,22 @@
+.center {
+  text-align: center;
+}
+
+.keep-btn {
+  float: right;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button.mat-primary {
+  background-color: #002659;
+}
+
+.hidden {
+  display: none;
+}

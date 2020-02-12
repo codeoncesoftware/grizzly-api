@@ -1,0 +1,50 @@
+<div class="container dbContainer">
+
+  <form #dsCloudForm="ngForm">
+    <div class="box box-default">
+      <div class="box-header" style="text-align: left"><span translate>dbsource-modal-cloud-connection.cloud</span>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <mat-form-field class="col-md-12">
+            <input matInput placeholder="{{'dbsource-modal-cloud-connection.placeholder.name' |translate}}" required
+              [(ngModel)]="dbSource.name" #name="ngModel" name="name">
+            <mat-error *ngIf="name.touched && name.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="col-md-12">
+            <input matInput placeholder="{{'dbsource-modal-cloud-connection.placeholder.mongo' |translate}}" required
+              [(ngModel)]="dbSource.uri" #srv="ngModel" name="srv">
+            <mat-error *ngIf="srv.touched && srv.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="dbSource.connectionSucceeded === false">
+      <p>
+        <em class="material-icons" style="vertical-align: middle"> error </em><span
+          translate>dbsource-modal-cloud-connection.fail</span>
+      </p>
+    </div>
+    <div *ngIf="dbSource.connectionSucceeded === true">
+      <p>
+        <em class="material-icons" style="vertical-align: middle"> check_circle </em><span
+          translate>dbsource-modal-cloud-connection.success</span>
+      </p>
+    </div>
+
+  </form>
+
+  <div class="box-body step-buttons text-right">
+    <button mat-raised-button color="accent" class="btn-w-md" (click)="onCheckConnection()"><span
+        translate>dbsource-modal-cloud-connection.test</span></button>
+    <span class="space"></span>
+    <button matStepperPrevious mat-raised-button class="btn-w-md"><span
+        translate>dbsource-modal-cloud-connection.previous</span></button>
+    <span class="space"></span>
+    <button [disabled]="dsCloudForm.invalid" matStepperNext mat-raised-button color="primary" class="btn-w-md"><span
+        translate>dbsource-modal-cloud-connection.next</span></button>
+  </div>
+</div>

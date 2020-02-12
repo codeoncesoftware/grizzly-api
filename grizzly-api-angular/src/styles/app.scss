@@ -1,0 +1,82 @@
+@import "variables";
+
+@import "vendors/material2/material2";
+
+@import "pages/demo";
+@import "pages/auth";
+@import "pages/error";
+@import "pages/lock-screen";
+@import "pages/profile";
+@import "pages/invoice";
+@import "pages/dashboard";
+@import "pages/maintenance";
+@import "pages/about";
+@import "pages/terms";
+@import "pages/blog";
+
+.radius-bottom {
+  border-radius: 0px 0px 7px 7px;
+}
+.radius-top {
+  border-radius: 7px 7px 0px 0px;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .ul-wrapper {
+    min-height: 30vh;
+  }
+  .list {
+    height: 30vh;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .ul-wrapper {
+    min-height: 30vh;
+  }
+  .list {
+    height: 30vh;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .ul-wrapper {
+    min-height: 30vh;
+  }
+  .list {
+    height: 30vh;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .ul-wrapper {
+    min-height: 30vh;
+  }
+  .list {
+    height: 30vh;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

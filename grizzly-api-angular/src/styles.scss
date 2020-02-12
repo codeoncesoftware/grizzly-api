@@ -1,0 +1,31 @@
+@import "~jsoneditor/dist/jsoneditor.min.css";
+
+.error {
+  text-align: left;
+  color: red;
+}
+
+.mat-horizontal-stepper-header-container {
+  background-color: #002659;
+}
+
+.mat-step-header {
+  -webkit-text-fill-color: #fff;
+}
+
+.mat-stepper-horizontal-line {
+  border: 3px solid #fff;
+  border-radius: 50px;
+}
+
+.primaryColor {
+  color: #002659;
+}
+
+button.mat-primary {
+  background-color: #002659;
+}
+
+.hidden-modal {
+  opacity: 0;
+}

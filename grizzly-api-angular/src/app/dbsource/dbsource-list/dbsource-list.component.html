@@ -1,0 +1,33 @@
+<div>
+  <mat-toolbar class="dbsource-toolbar">
+    <button mat-button style="background: #002659; " (click)="openDBSourceModal()">
+      <strong class="nav-icon material-icons" style="color:white">add_circle</strong>
+    </button>
+    <span class="toolbar-text" translate>sidenav.datasources</span>
+  </mat-toolbar>
+</div>
+<hr style="margin: auto">
+
+<div style="overflow-y: scroll; height: 58%;">
+  <ul class="nav dbsources">
+    
+    <li class="li-small" *ngFor="let dbsource of dbSourceList">
+    <div *ngIf="fetching" style="text-align: center">
+      <img src="../../../assets/images/loader.gif" width="80" alt="Loader">
+      <p><span translate>dbsource.fetch</span> {{ dots }}</p>
+    </div>
+    <li class="li-small" *ngFor="let dbsource of dbSourceList; let i = index">
+      <a mat-button [routerLink]="['/app/dbsource', dbsource.id ]">
+        <em class="nav-icon nav-dot material-icons color-danger" *ngIf="!dbsource?.active">fiber_manual_record</em>
+        <em class="nav-icon nav-dot material-icons color-success" *ngIf="dbsource?.active">fiber_manual_record</em>
+        <span> {{ dbsource.name }}</span> 
+        
+      </a>
+    </li>
+    <div *ngIf="fetching" style="text-align: center">
+      <img src="../../../assets/images/loader.gif" width="80" alt="Loader">
+      <p><span translate>dbsource.fetch</span> {{ dots }}</p>
+    </div>
+  </ul>
+  
+</div>

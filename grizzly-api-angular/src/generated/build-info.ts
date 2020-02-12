@@ -1,0 +1,1 @@
+export const buildInfo ={"app":"grizzly-angular","version":"1.0.0","date":"2019-06-03T12:17:58.802Z"};

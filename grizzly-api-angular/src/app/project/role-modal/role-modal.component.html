@@ -1,0 +1,58 @@
+<form name="form" #f="ngForm">
+  <!-- Header -->
+  <h1 mat-dialog-title style="text-align:center" translate>{{ data.action.msg }}</h1>
+
+  <!-- Content -->
+  <div mat-dialog-content class="row">
+
+    <div class="row">
+      <mat-form-field class="col-md-3">
+        <input matInput placeholder="Role" [(ngModel)]="role" name="roleAdded">
+      </mat-form-field>
+
+      <div class="col-md-2">
+        <button mat-stroked-button class="addBtn" (click)="addNewRole()">
+          <mat-icon class="material-icons">add</mat-icon>&nbsp; <span translate>Add</span>
+        </button>
+        <div style="color: red" *ngIf="!unique">
+          this is not unique
+        </div>
+      </div>
+    </div>
+    <div *ngIf="data.project?.roles?.length > 0">
+      <div style="height: 40vh; border-bottom: none; overflow-y: auto">
+        <table class="mdl-data-table" style="width: 100%;">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Role</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let role of data.project?.roles; let i = index">
+              <td class="mdl-data-table__cell--non-numeric" style="width: 30%;">{{ role }} </td>
+              <td><button mat-button (click)="deleteRole(i)" style="width: 10%;">
+                  <em class="material-icons">
+                    delete_outline
+                  </em></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="box-body text-right">
+      <button mat-raised-button (click)="closeRoles()" class="btn-w-md"><span
+          translate>popups.buttons.cancel</span></button>
+      <span class="space"></span>
+      <button (click)="confirmChoice()" mat-raised-button id="confirm" type="submit" color="primary" class="btn-w-md"
+        [disabled]="!modified || !unique">
+        <span translate>popups.buttons.confirm</span></button>
+    </div>
+
+
+  </div>
+
+</form>

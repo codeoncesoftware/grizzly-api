@@ -1,0 +1,51 @@
+.alert {
+}
+
+button {
+  cursor: pointer;
+}
+
+.confirmBtn {
+  color: white !important;
+  background-color: #002659;
+}
+
+.messageBox-content {
+  padding: 0px 20px 0px 20px;
+  color: black;
+}
+
+.messageBox-error {
+    background-color: #ff5252;
+}
+
+.messageBox-header {
+  width: 100%;
+  color: white;
+  border-radius: 0px !important;
+}
+
+.messageBox-headerMessage {
+  padding-bottom: 10px;
+}
+
+.messageBox-info {
+    background-color: #002659;
+}
+
+.custom-dialog-container .mat-dialog-container {
+  padding: 0px ;
+  border-radius: 0px;
+}
+
+.msgList {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.padding {
+  padding: 0px 20px 0px 20px;
+}
+
+.messageBox-warning {
+    background-color: #FFC107;
+}

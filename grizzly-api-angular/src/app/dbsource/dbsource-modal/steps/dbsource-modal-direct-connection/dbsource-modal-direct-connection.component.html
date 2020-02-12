@@ -1,0 +1,85 @@
+<div class="container dbContainer">
+  <form name="dsForm" #dsForm="ngForm">
+    <div class="box box-default">
+      <div class="box-header" style="text-align: left"><span
+          translate>dbsource-modal-direct-connection.connection</span></div>
+      <div class="box-body">
+        <div class="form-group">
+          <mat-form-field class="col-md-12">
+            <input matInput placeholder="{{'dbsource-modal-direct-connection.placeholder.name' |translate}}" required
+              [(ngModel)]="dbSource.name" #name="ngModel" name="name">
+            <mat-error *ngIf="name.touched && name.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="{{'dbsource-modal-direct-connection.placeholder.host' |translate}}" required
+              [(ngModel)]="dbSource.host" #host="ngModel" name="hostname">
+            <mat-error *ngIf="host.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="{{'dbsource-modal-direct-connection.placeholder.port' |translate}}"
+              type="number" required [(ngModel)]="dbSource.port" #port="ngModel" name="port">
+            <mat-error *ngIf="port.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6" style="text-align:left">
+            <mat-slide-toggle [(ngModel)]="dbSource.authRequired" name="authRequired"><span
+                translate>dbsource-modal-direct-connection.perform</span></mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box box-default" *ngIf="dbSource.authRequired">
+      <div class="box-header" style="text-align: left"><span translate>dbsource-modal-direct-connection.auth</span>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="{{'dbsource-modal-direct-connection.placeholder.username' |translate}}"
+              required [(ngModel)]="dbSource.username" #username="ngModel" name="username">
+            <mat-error *ngIf="username.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="{{'dbsource-modal-direct-connection.placeholder.password' |translate}}"
+              required [(ngModel)]="dbSource.password" #password="ngModel" name="password" type="password">
+            <mat-error *ngIf="password.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-md-12">
+            <input matInput placeholder="{{'dbsource-modal-direct-connection.placeholder.authb' |translate}}" required
+              [(ngModel)]="dbSource.authenticationDatabase" #authenticationDatabase="ngModel"
+              name="authenticationDatabase">
+            <mat-error *ngIf="authenticationDatabase.invalid">{{'required'}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="dbSource.connectionSucceeded === false">
+      <p>
+        <em class="material-icons" style="vertical-align: middle"> error </em><span
+          translate>dbsource-modal-cloud-connection.fail</span>
+      </p>
+    </div>
+    <div *ngIf="dbSource.connectionSucceeded === true">
+      <p>
+        <em class="material-icons" style="vertical-align: middle"> check_circle </em> <span
+          translate>dbsource-modal-direct-connection.success</span>
+      </p>
+    </div>
+
+  </form>
+
+  <div class="box-body step-buttons text-right">
+    <button mat-raised-button color="accent" class="btn-w-md" (click)="onCheckConnection()"><span
+        translate>dbsource-modal-direct-connection.test</span></button>
+    <span class="space"></span>
+    <button matStepperPrevious mat-raised-button class="btn-w-md"><span translate>popups.buttons.back</span></button>
+    <span class="space"></span>
+    <button matStepperNext mat-raised-button color="primary" class="btn-w-md" [disabled]="!isCompleted()"><span
+        translate>popups.buttons.next</span></button>
+  </div>
+  
+</div>

@@ -1,0 +1,12 @@
+.primaryColor {
+  color: #002659;
+}
+
+button {
+  cursor: pointer;
+}
+
+::ng-deep .mat-form-field-label {
+  /*change color of label*/
+  color: black !important;
+}

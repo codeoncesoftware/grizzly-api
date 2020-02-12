@@ -1,0 +1,44 @@
+spring:
+  profiles:
+    active:
+    - test
+  flyway:
+      enabled: false
+  data:
+    mongodb:
+      host: localhost
+      database: griz
+      uri: mongodb+srv://codedevAdmin:codedevAdmin@grizzly-dev-cluster-l21z5.mongodb.net/test?retryWrites=true&w=majority
+  mail:
+    from: "userMock"
+    personal: "Grizzly API"core:
+  oauth2:
+    client_id: mMKBdsIgpC9prxBwgd6V
+    client_secret: QzNmrG57pQpt5B9azA01
+    grant_type: password #authorization_code,refresh_token,password,implicit
+    scope: read # read,write
+    token_validity: 3600
+    refresh_token_validity: 3600
+    jwt_key: I8opCRdidwqvG6F7xqGQ
+    url : http://localhost:8090
+app: 
+  saxon:
+    hasLicense: false
+    
+frontUrl: http://localhost:4200
+
+resource-url : NO_NEEDED_FOR_TEST
+
+mongo:
+  uri: mongodb+srv://codedevAdmin:codedevAdmin@grizzly-dev-cluster-l21z5.mongodb.net/test?retryWrites=true&w=majority
+
+encrypt:
+  key: b66ee2a63379d2283e7612ce2e797d08
+
+offres:
+  free:
+    msCount: 3
+    maxStorage: 300000
+  premium:
+    msCount: 20
+    maxStorage: 5000000

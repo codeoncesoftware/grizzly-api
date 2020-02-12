@@ -1,0 +1,59 @@
+<div style="text-align: left; height:60vh; word-wrap: break-word; overflow-y: auto">
+
+    <h6 *ngIf="resource.name"><strong><span translate>api.n</span></strong> <span> {{ resource.name }} </span></h6>
+    <h6 *ngIf="resource.description"><strong><span translate>api.desc</span></strong><span> {{ resource.description }} </span></h6>
+    <h6 *ngIf="resource.summary"><strong><span translate>api.summary</span></strong><span> {{ resource.summary }} </span></h6>
+    <h6 *ngIf="resource.httpMethod"><strong><span translate>api.http</span></strong><span> {{ resource.httpMethod }} </span></h6>
+    <h6 *ngIf="resource.produces?.length > 0"><strong><span translate>api.prod</span></strong>
+
+        <ul *ngFor="let type of resource?.produces">
+            <li>{{ type }}</li>
+        </ul>
+    </h6>
+    <h6 *ngIf="resource.consumes?.length > 0"><strong><span translate>api.cons</span></strong>
+        <ul *ngFor="let type of resource.consumes">
+            <li>{{ type }}</li>
+        </ul>
+    </h6>
+    <h6 *ngIf="selectedFileName"><strong><span translate>api.selected</span></strong><span> {{ selectedFileName }} </span></h6>
+    <h6 *ngIf="resource.path"><strong><span translate>api.path</span></strong><span> {{ resource.path }} </span></h6>
+    <h6 *ngIf="secondaryFiles?.length > 0"><strong><span translate>api.second</span></strong>
+        <ul>
+            <li *ngFor="let secFile of secondaryFiles">{{secFile.fileUri}}</li>
+        </ul>
+    </h6>
+
+    <div *ngIf="parameters?.length > 0">
+        <h6><strong><span translate>api.list</span></strong></h6>
+        <div>
+            <ul>
+                <li *ngFor="let param of parameters; let i = index">
+                    <div>
+                        <p style="color: #11b5e4">{{ param.name }} :
+                            <span style="color:black">{{ param.type }} in {{ param.in }}</span>
+                            <br>
+                            <span style="color:black">{{ param.value }}</span>
+                        </p>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <h6><strong><span translate>api.respo</span></strong></h6>
+    <div *ngIf="resource.responses.length > 0">
+        <ul>
+            <li *ngFor="let response of resource?.responses; let i = index">
+                <div style="line-height: 100%">
+                    <p style="color: #11b5e4">{{ response.code }} :
+                        <span style="color:black"> {{ response.description }}</span>
+                    </p>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+
+    <div class="divider divider-md"></div>
+
+</div>

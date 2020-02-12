@@ -1,0 +1,21 @@
+<div>
+  <mat-toolbar class="project-toolbar">
+    <button mat-button style="background: #002659; " (click)="openDialog()">
+      <strong class="material-icons" style="color:white; ">add_circle</strong>
+    </button>
+    <span class="toolbar-text" translate>sidenav.projects</span>
+  </mat-toolbar>
+</div>
+
+<div>
+  <ul class="nav list" myAccordionNav mySlimScroll myHighlightActiveItems myAppendSubmenuIcon style="overflow-y: auto">
+    <li *ngFor="let project of projectsList; let i = index">
+      <a mat-button [routerLink]="['/app/project', project.id]"><i class="nav-icon material-icons">bubble_chart</i><span
+          style="color: black" class="nav-text">{{ project.name }}</span>
+      </a>
+      <ul>
+        <li><a mat-button class="md-button prepend-icon"><span><span translate>sidenav.database</span> {{project.databaseName}}</span></a></li>
+      </ul>
+    </li>
+  </ul>
+</div>

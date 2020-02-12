@@ -1,0 +1,144 @@
+<app-loader></app-loader>
+<div class="container-fluid" style="text-align: center;height:65vh;position: relative;">
+
+  <div>
+    <form name="form" #f="ngForm">
+
+      <h1 mat-dialog-title> <span translate>{{ data.action.msg }}</span> {{ data.project?.name }}</h1>
+
+      <mat-horizontal-stepper #stepper>
+        <div class="divider divider-md"></div>
+
+        <mat-step style="height: 100%">
+          <ng-template matStepLabel style="color: #fff"><span translate>popups.project.details</span></ng-template>
+          <div class="divider divider-md"></div>
+
+          <div class="container" style="height: 100%">
+            <mat-form-field class="col-md-12">
+              <input matInput placeholder="{{ 'popups.project.placeholder.name' | translate}}" [(ngModel)]="obj.name"
+                #projectName="ngModel" name="name" (keyup)="onInput()" value="obj?.name" required="true"
+                pattern="^[^\s]+(\s+[^\s]+)*$" (keyup.enter)="validateProject()">
+
+            </mat-form-field>
+
+            <br><br>
+            <mat-form-field class="col-md-12">
+
+              <textarea matInput placeholder="{{ 'popups.project.placeholder.description' | translate}}" rows="3"
+                [(ngModel)]="obj.description" name="description"></textarea>
+
+            </mat-form-field>
+
+            <br><br>
+
+            <mat-checkbox style="float: left" *ngIf="!obj?.dbsourceId" [(ngModel)]="createDefaultDb"
+              name="createDefaultDb"><span translate>datasource.default</span></mat-checkbox>
+
+            <div class="divider divider-md"></div>
+
+            <!-- Naming Verification Rules Section START -->
+            <div *ngIf="projectName?.errors?.required && projectName?.touched">
+              <ul class="error">
+                <li translate>popups.project.errors.null</li>
+              </ul>
+            </div>
+            <div *ngIf="projectName?.errors?.pattern">
+              <ul class="error">
+                <li translate>popups.project.errors.pattern</li>
+              </ul>
+            </div>
+            <div *ngIf="!uniqueProjectName">
+              <ul class="error">
+                <li translate>popups.project.errors.unicity</li>
+              </ul>
+            </div>
+
+            <div *ngIf="!uniqueDbName">
+              <ul class="error">
+                <li translate>popups.dbsource.errors.unicity</li>
+              </ul>
+            </div>
+            <!-- Naming Verification Rules Section END -->
+          </div>
+
+        </mat-step>
+
+        <mat-step *ngIf="!createDefaultDb">
+          <ng-template matStepLabel style="color: #fff"><span translate>popups.project.selectDb</span></ng-template>
+          <div class="divider divider-md"></div>
+
+          <div style="height: 100%">
+            <div class="row">
+              <div class="col-9">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>Data-source</mat-label>
+                  <mat-select matNativeControl name="datasource" #datasourceSelect [(ngModel)]="obj.dbsourceId"
+                    (selectionChange)="selectDataSource($event.value)" required>
+                    <div *ngFor="let dbsource of dbsourcesList">
+                      <mat-option [value]="dbsource.id">{{ dbsource.name }}</mat-option>
+                    </div>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field style="width: 100%;">
+                  <mat-label translate>popups.project.placeholder.database</mat-label>
+                  <mat-select matNativeControl name="database" #databaseSelect [(ngModel)]="obj.databaseName" required>
+                    <div *ngFor="let db of databasesList">
+                      <mat-option [value]="db.name">{{ db.name }}</mat-option>
+                    </div>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <button mat-button type="button" style="background-color:  #002659; color: white" class="btn-w-sm"
+                  (click)="$event.stopPropagation(); openDataSourceModal();">
+                  <span translate>dbsource.simpleAdd</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- If not Data Source is Found in The State-->
+            <div style="text-align: left" *ngIf="dbsourcesList.length === 0">
+              <p translate>datasource.error</p>
+            </div>
+            <p style="text-align: left">
+              <em class="material-icons" style="vertical-align: middle"> error </em>
+              <span translate> &nbsp;
+                dbsource-details.warning
+              </span>
+            </p>
+          </div>
+
+        </mat-step>
+
+      </mat-horizontal-stepper>
+
+      <div class="divider divider-md"></div>
+
+
+      <div class="box-body text-right">
+        <button mat-raised-button type="button" class="btn-w-md" (click)="goBack(stepper)"
+          *ngIf="stepper.selectedIndex !== 0">
+          <span translate>popups.buttons.back</span></button>
+        <button mat-raised-button type="button" class="btn-w-md" (click)="dialogRef.close()"
+          *ngIf="stepper.selectedIndex === 0">
+          <span translate>popups.buttons.cancel</span></button>
+        <span class="space"></span>
+
+        <button mat-raised-button type="button" (click)="goForward(stepper)"
+          [disabled]="projectName.errors || !uniqueProjectName" *ngIf="stepper.selectedIndex !== 1 && !createDefaultDb"
+          color="primary" class="btn-w-md">
+          <span translate>popups.buttons.next</span></button>
+
+        <button mat-raised-button type="button" (click)="validateProject()"
+          *ngIf="stepper.selectedIndex === 1 || createDefaultDb" color="primary" class="btn-w-md" id="confirm"
+          [disabled]="f.form.invalid || !uniqueProjectName">
+          <span translate>popups.buttons.confirm</span></button>
+      </div>
+
+
+
+
+    </form>
+  </div>
+
+</div>

@@ -1,0 +1,757 @@
+<div class="container-fluid" style="text-align: center;height:65vh;position: relative;">
+  <span style="position:absolute; top:0; right:0;">
+    <button mat-button (click)="resourceDialogRef.close()">
+      <mat-icon>clear</mat-icon> <span translate>api.cancel</span>
+    </button>
+  </span>
+  <h5>
+    <span *ngIf="!editMode" translate>api.add</span>
+    <span *ngIf="editMode" translate>api.edit</span>
+  </h5>
+
+  <div class="row" style="position:relative;">
+    <div class="col-md-12" style="overflow-y: auto">
+      <!-- Wizard Section START -->
+      <mat-horizontal-stepper #stepper linear="false" style="height: 70vh;">
+        <div class="divider divider-md"></div>
+        <mat-step [stepControl]="secondFormGroup">
+
+          <ng-template matStepLabel><span translate>api.definition</span></ng-template>
+          <div class="divider divider-md"></div>
+
+          <div class="" style="height: 50vh; overflow-y: auto;">
+            <form [formGroup]="secondFormGroup" style="text-align: left">
+              <div class="">
+
+
+                <div style="padding-bottom:20px;">
+                  <span>
+                    <strong><span translate>api.type</span> <span class="space"></span> : <span class="space"></span>
+                    </strong>
+                  </span>
+
+                  <span class="space"></span>
+                  <span class="space"></span>
+                  <span class="space"></span>
+
+                  <mat-radio-group layout="row" aria-label="Select an option" formControlName="executionType"
+                    [(ngModel)]="resource.executionType" name="executionType">
+                    <mat-radio-button style="padding-right: 10px" value="Query"><span translate>api.query</span>
+                    </mat-radio-button>
+                    <mat-radio-button style="padding-right: 10px" value="XSL">XSL</mat-radio-button>
+                    <mat-radio-button style="padding-right: 10px" value="Thymeleaf">Thymeleaf</mat-radio-button>
+                    <mat-radio-button style="padding-right: 10px" value="FreeMarker">FreeMarker</mat-radio-button>
+                    <mat-radio-button style="padding-right: 10px" value="File"><span translate>api.fichier</span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <mat-form-field style="width: 20%">
+                  <mat-label>{{ 'api.placeholder.http' | translate }}</mat-label>
+                  <mat-select matNativeControl formControlName="httpMethod" [(ngModel)]="resource.httpMethod"
+                    name="httpMethod" required>
+                    <mat-option value="POST">POST</mat-option>
+                    <mat-option value="GET">GET</mat-option>
+                    <mat-option value="PUT">PUT</mat-option>
+                    <mat-option value="DELETE">DELETE</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field style="width: 80%">
+                  <input matInput formControlName="pathName" (keyup)="onInput()"
+                    placeholder="{{ 'api.placeholder.endpoint' | translate }}" [(ngModel)]="resource.path"
+                    (blur)="getPathParams($event.target.value)" name="resourcePath" required>
+                  <!-- Tooltip -->
+                  <mat-icon matSuffix style="cursor: pointer; margin-top:10px; margin-right:10px;"
+                    matTooltipClass="test" matTooltip="{{ 'help.apiPath' | translate }}">
+                    info
+                  </mat-icon>
+                </mat-form-field>
+
+                <!-- File Name To Upload, this Field will be used in HTTP Calls -->
+                <mat-form-field style="width: 100%"
+                  *ngIf="resource.httpMethod !== 'GET' && resource.httpMethod !== 'DELETE' && resource.executionType === 'File'">
+                  <input matInput formControlName="fileNameForUpload" [(ngModel)]="fileNameForUpload"
+                    placeholder="{{'api.placeholder.fname' |translate}}" name="resourcePath">
+                  <!-- Tooltip -->
+                  <mat-icon matSuffix style="cursor: pointer; margin-top:10px; margin-right:10px;"
+                    matTooltipClass="test" matTooltip="{{ 'help.fileName' | translate }}">
+                    info
+                  </mat-icon>
+                </mat-form-field>
+
+                <div *ngIf="!apiUnicity" style="color: red">
+                  <span translate>api.under</span>
+                </div>
+                <div *ngIf="emptyPath" style="color: red">
+                  <span translate>api.emptyPath</span>
+                </div>
+
+                <div
+                  *ngIf="(resource.httpMethod === 'GET' || resource.httpMethod === 'DELETE') && resource.executionType === 'File'">
+                  <div class="divider divider-md"></div>
+                  <div *ngIf="resource.httpMethod === 'GET'">
+                    <mat-radio-group aria-label="Select an option" formControlName="many"
+                      [(ngModel)]="resource.customQuery.many" name="many">
+                      <mat-radio-button [value]="false"><span translate>api.one</span></mat-radio-button>&nbsp;
+                      <mat-radio-button [value]="true"><span translate>api.many</span></mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div class="divider divider-md"></div>
+                  <mat-card>
+                    <p style="width: 100%; text-align: left">
+                      <span translate>api.in</span> <span style="color: #b00; font-weight: 700">id</span> <span
+                        translate>api.htt</span>
+                    </p>
+                  </mat-card>
+                  <div class="divider divider-md"></div>
+                </div>
+
+                <div *ngIf="resource.executionType === 'Query' && resource.httpMethod === 'GET'">
+                  <div style="overflow: hidden">
+                    <div class="row">
+                      <div class="container-fluid" style="text-align: left">
+                        <mat-slide-toggle style="margin-top:5px;font-size: 12px;float: left"
+                          [checked]="resource.pageable" (change)="checkPageable()">
+                          <span translate>api.page</span>
+                        </mat-slide-toggle>
+                        <div class="divider divider-md"></div>
+                        <div *ngIf="resource.pageable">
+                          <p><span translate>api.please</span></p>
+                          <ul>
+                            <li><strong>pageNumber</strong><span translate>api.hold</span></li>
+                            <li><strong>pageSize</strong><span translate>api.per </span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="divider divider-md"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <div>
+              <div class="parameters-list" style="text-align: left">
+
+                <strong><span translate>api.parameters</span></strong>
+                <span class="space"></span>
+                <!-- Tooltip -->
+                <mat-icon matSuffix style="cursor: pointer;" matTooltipClass="test"
+                  matTooltip="{{ 'help.addParam' | translate }}">
+                  info
+                </mat-icon>
+
+                <p *ngIf="resource.executionType !== 'Query'">
+                  <span translate>container.transformationDesc</span>
+                </p>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="row">
+                      <mat-form-field class="col-md-3">
+                        <mat-label>In</mat-label>
+                        <mat-select matNativeControl [(ngModel)]="param.in" name="paramIn">
+                          <mat-option value="Header">Header</mat-option>
+                          <mat-option value="Body">Body</mat-option>
+                          <mat-option value="formData">formData</mat-option>
+                          <mat-option value="Query">Query</mat-option>
+                          <mat-option value="Path">Path</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="col-md-3">
+                        <input matInput placeholder="{{'api.placeholder.name' |translate}}" [(ngModel)]="param.name"
+                          name="paramName">
+                      </mat-form-field>
+                      <mat-form-field class="col-md-2">
+                        <mat-label>Type</mat-label>
+                        <mat-select matNativeControl [(ngModel)]="param.type" name="paramType"
+                          (selectionChange)="checkIfFileIsSelected()">
+                          <mat-option value="string"><span translate>string</span></mat-option>
+                          <mat-option value="integer"><span translate>integer</span></mat-option>
+                          <mat-option value="integer"><span translate>number</span></mat-option>
+                          <mat-option value="boolean"><span translate>boolean</span></mat-option>
+                          <mat-option value="char"><span translate>char</span></mat-option>
+                          <mat-option value="file"><span translate>file</span></mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="col-md-4">
+                        <input matInput placeholder="{{'api.placeholder.default' |translate}}" [(ngModel)]="param.value"
+                          name="paramValue" [disabled]="disableDefaultValue">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <button matSuffix mat-raised-button color="primary" style="float: right; width: 100%"
+                      (click)="addNewParam()">
+                      <mat-icon class="material-icons">add</mat-icon>&nbsp; <span translate>api.ad</span>
+                    </button>
+                  </div>
+
+
+                </div>
+
+                <div *ngIf="parameters?.length > 0">
+                  <div style="height: 50%;">
+                    <table class="mdl-data-table" style="width: 100%;overflow-y: auto; float: left;">
+                      <thead>
+                        <tr *ngIf="parameters.length > 0">
+                          <th id="tableHead">In</th>
+                          <th id="tableHead"><span translate>api.placeholder.name</span></th>
+                          <th id="tableHead">Type</th>
+                          <th id="tableHead"><span translate>api.placeholder.default</span></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let param of parameters; let i = index" class="col-md-12">
+                          <tr
+                            *ngIf="!(resource.executionType === 'Query' && resource.customQuery?.type === 'Insert' && param.in === 'Body')">
+                            <td class="mdl-data-table__cell--non-numeric" style="width: 20%;">{{ param?.in }} </td>
+                            <td class="mdl-data-table__cell--non-numeric" style="width: 21.5%;">{{ param?.name }}
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric" style="width: 14.5%;">{{ param?.type }}
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric box-size">
+                              <span>{{param.value}}</span></td>
+                            <td><button mat-button (click)="deleteParam(i)" style="width: 10%; float: right">
+                                <em class="material-icons">
+                                  delete_outline
+                                </em></button>
+                            </td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </mat-step>
+
+        <mat-step style="height: 50vh; overflow-y: auto; overflow-x: hidden;"
+          *ngIf="resource.executionType !== 'File' && resource?.executionType === 'Query'">
+          <ng-template matStepLabel>
+            <span translate>api.reqDetails</span>
+          </ng-template>
+
+          <div class="divider divider-md"></div>
+          <div style="height: 50vh; overflow-y: auto;  overflow-x: hidden;">
+            <div *ngIf="resource.executionType === 'Query'">
+              <div>
+                <p style="text-align: left">
+                  <strong translate>api.placeholder.collection</strong>
+                </p>
+                <div class="row">
+                  <div class="col-md-10">
+                    <mat-form-field style="width: 100%;">
+                      <mat-label>
+                        <span translate>api.placeholder.selectCollection</span>
+                      </mat-label>
+                      <!-- Tooltip -->
+                      <mat-icon matSuffix style="cursor: pointer; margin-top:10px; margin-right:10px;"
+                        matTooltipClass="test" matTooltip="{{ 'help.collection' | translate }}">
+                        info
+                      </mat-icon>
+                      <mat-select matNativeControl name="collection" required
+                        [(ngModel)]="resource.customQuery.collectionName" *ngIf="!addCollectionBool">
+                        <mat-option disabled hidden [value]="" *ngIf="!resource.customQuery.collectionName">-- select --
+                        </mat-option>
+                        <mat-option *ngFor="let collection of collectionsList" [value]="collection">{{ collection }}
+                        </mat-option>
+                      </mat-select>
+                      <input matInput type="text" [(ngModel)]="newCollectionName" #newCollection
+                        placeholder="{{'api.placeholder.collection' |translate}}" name="newCollection"
+                        *ngIf="addCollectionBool">
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-md-2">
+                    <button matSuffix mat-raised-button color="primary" style="float: right;width: 100%;"
+                      *ngIf="!addCollectionBool" (click)="addCollection()">
+                      <mat-icon class="material-icons">add</mat-icon>&nbsp; <span translate>api.ad</span>
+                    </button>
+                    <button matSuffix mat-raised-button *ngIf="addCollectionBool" (click)="confirmNewCollection()">
+                      <em class="material-icons" style="color: #66BB6A">
+                        done
+                      </em>
+                    </button>
+                    <button matSuffix mat-raised-button style="float: right;" *ngIf="addCollectionBool"
+                      (click)="cancelNewCollection()">
+                      <em class="material-icons" style="color: #F93E3E">
+                        undo
+                      </em>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6" style="text-align: left;"
+                *ngIf="(resource.httpMethod === 'PUT' || resource.httpMethod === 'POST') && resource.executionType === 'Query'">
+                <p>
+                  <strong translate>query-api-modal.reqType</strong>
+                  <!-- Tooltip -->
+                </p>
+                <mat-form-field style="width: 100%; vertical-align: text-top">
+                  <mat-label>
+                    <span translate>api.insertUpdate</span>
+                  </mat-label>
+                  <mat-icon matSuffix style="cursor: pointer; margin-top:10px; margin-right:10px;"
+                    matTooltipClass="test" matTooltip="{{ 'help.reqType' | translate }}">
+                    info
+                  </mat-icon>
+                  <mat-select matNativeControl [(ngModel)]="resource.customQuery.type" name="queryType">
+                    <mat-option value="Insert"><span translate>api.insertData</span></mat-option>
+                    <mat-option value="Update"><span translate>api.updateData</span></mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-md-6" *ngIf="resource.executionType === 'Query'">
+                <p style="text-align: left">
+                  <strong translate>api.returnNumber</strong>
+                </p>
+                <div>
+                  <mat-form-field style="width: 100%;">
+                    <mat-label><span translate>api.returnElementNumber</span></mat-label>
+                    <!-- Tooltip -->
+                    <mat-icon matSuffix style="cursor: pointer; margin-top:10px; margin-right:10px;"
+                      matTooltipClass="test" matTooltip="{{ 'help.resNumber' | translate }}">
+                      info
+                    </mat-icon>
+
+                    <mat-select aria-label="Select an option" [(ngModel)]="resource.customQuery.many" name="many">
+                      <mat-option [value]="false"><span translate>api.one</span></mat-option>
+                      <mat-option [value]="true"><span translate>api.many</span></mat-option>
+                    </mat-select>
+
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div style="width: 100%;">
+
+                  <div class="row" style="max-height: 40vh">
+                    <div class="col-12" style="height: 40vh; overflow: auto">
+                      <div *ngIf="resource.executionType === 'Query'">
+
+                        <div class="row">
+
+
+                          <div class="col-md-9">
+                            <div style="text-align: left">
+                              <p>
+                                <strong translate>api.query</strong>
+                                <!-- Tooltip -->
+                                <mat-icon matSuffix style="cursor: pointer;" matTooltipClass="test"
+                                  matTooltip="{{ 'help.query' | translate }}">
+                                  info
+                                </mat-icon>
+
+                                <span class="space"></span>
+                                <span class="space"></span>
+                              </p>
+
+                              <p>
+                                <span translate>api.reqBody</span>
+                              </p>
+
+                            </div>
+                          </div>
+
+                          <div class="col-md-3">
+                            <div class="divider divider-md"></div>
+                            <mat-form-field style="width: 100%">
+                              <mat-label>
+                                <span translate>api.placeholder.snippet</span>
+                              </mat-label>
+                              <mat-select>
+                                <mat-option *ngFor="let name of querySnippetNames" (click)="addSnippet(name)"
+                                  [value]="name">
+                                  {{ name }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+
+                        </div>
+
+
+                        <div class="row">
+                          <div class="borderRight col-md-9">
+                            <json-editor matInput [options]="editorOptions" [data]="query"
+                              (change)="getJsonChange($event)" aria-placeholder="{ee}">
+                            </json-editor>
+                          </div>
+
+                          <div class="divider divider-md"></div>
+
+                          <div class="col-md-3" style="text-align: left">
+                            <p>
+                              <strong>
+                                <span translate>api.paramList</span>
+                              </strong>
+                            </p>
+
+                            <mat-list role="list">
+                              <mat-list-item style="text-align: left" role="listitem">
+                                <span> - <span class="space"></span> $session_username</span>
+                              </mat-list-item>
+                              <mat-list-item style="text-align: left" role="listitem">
+                                <span> - <span class="space"></span> $session_firstname</span>
+                              </mat-list-item>
+                              <mat-list-item style="text-align: left" role="listitem">
+                                <span> - <span class="space"></span> $session_lastName</span>
+                              </mat-list-item>
+                              <mat-list-item style="text-align: left" role="listitem">
+                                <span> - <span class="space"></span> $session_email</span>
+                              </mat-list-item>
+                              <mat-list-item style="text-align: left" role="listitem">
+                                <span> - <span class="space"></span> $session_phone</span>
+                              </mat-list-item>
+                              <mat-list-item *ngFor="let param of parameters; let i = index" style="text-align: left"
+                                role="listitem">
+                                <span> -
+                                  <span class="space"></span>
+                                  %{{ param.name }}</span>
+                              </mat-list-item>
+                            </mat-list>
+
+                          </div>
+                        </div>
+
+                        <div class="divider divider-md"></div>
+                        <div class="divider divider-md"></div>
+
+                        <div>
+                          <p *ngIf="resource.executionType === 'Query' && resource.customQuery?.type === 'Insert' && resource.httpMethod !== 'GET'"
+                            class="doc">
+                            <span translate>api.insert</span>
+                          </p>
+                          <p *ngIf="resource.executionType === 'Query' && resource.customQuery?.type === 'Update' && resource.httpMethod !== 'GET'"
+                            class="doc">
+                            <span translate>api.update</span>
+                          </p>
+                        </div>
+
+                      </div>
+
+                      <div>
+
+                        <!-- <div class="dynamic-body" *ngIf="resource?.executionType !== 'Query'">
+                          <label id="lbl"><span translate>api.body</span> </label><br>
+                          <mat-form-field class="col-md-12">
+                            <textarea matInput placeholder="{{'api.placeholder.this' |translate}}" rows="5"
+                              [(ngModel)]="bodyContent" (blur)="displayBody()" name="Body"></textarea>
+                          </mat-form-field>
+                          <p>
+                            <span translate>api.or</span>
+                          </p>
+                          <div class="upload-btn-wrapper">
+                            <button class="uploadBtn">
+                              <span translate>api.placeholder.uploadFile</span>
+                            </button>
+                            <input type="file" name="myfile" (change)="xmlFileChanged($event)" />
+                          </div>
+                        </div> -->
+
+
+                      </div>
+
+                      <div
+                        *ngIf="(resource.executionType === 'Query' && (resource.httpMethod === 'GET' || resource.httpMethod === 'DELETE'))">
+                        <app-resource-projection [fields]="resource.fields"
+                          (fieldsUpdated)="updateProjectionFields($event)">
+                        </app-resource-projection>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </mat-step>
+
+
+        <!-- File Selection Section START -->
+        <mat-step *ngIf="resource.executionType !== 'Query' && resource.executionType != 'File'"
+          style="height: 80vh; overflow-y: auto">
+          <ng-template matStepLabel>
+            <span translate>api.templateStep</span>
+          </ng-template>
+          <div class="divider divider-md"></div>
+
+          <div style="height: 50vh; overflow-y: auto">
+
+
+            <div class="container-fluid">
+
+              <p style="text-align: left">
+                <span translate>api.resources</span>
+              </p>
+
+              <div class="divider divider-md"></div>
+              <hr>
+
+              <div style="text-align: left">
+                <div>
+                  <h5>
+                    <span translate>api.template</span>
+                    <mat-icon matSuffix style="cursor: pointer;" matTooltipClass="test"
+                      matTooltip="{{ 'help.primaryRessource' | translate }}">
+                      info
+                    </mat-icon>
+                    &nbsp;&nbsp;
+                    <button mat-stroked-button color="primary" class="selectBtn"
+                      (click)="openSelectFilesModal('primary')">Select</button>
+                  </h5>
+                  <p *ngIf="!resource.resourceFile?.fileUri">
+                    <span translate>api.noSelectedFiles</span>
+                  </p>
+                  <p *ngIf="resource.resourceFile?.fileUri">
+                    {{ resource.resourceFile.fileUri }}
+                    <button mat-button (click)="unSelectFile(file, 'primary')">
+                      <em class="material-icons">
+                        delete_outline
+                      </em>
+                    </button></p>
+                </div>
+              </div>
+
+              <div class="divider divider-md"></div>
+              <hr>
+
+              <div style="text-align: left">
+                <div>
+
+                  <h5>
+                    <span translate>api.staticRes</span>
+                    <mat-icon matSuffix style="cursor: pointer;" matTooltipClass="test"
+                      matTooltip="{{ 'help.secondaryRessource' | translate }}">
+                      info
+                    </mat-icon>
+                    &nbsp;&nbsp;
+                    <button mat-stroked-button color="primary" class="selectBtn"
+                      (click)="openSelectFilesModal('secondary')">Select</button>
+
+                  </h5>
+
+                  <p *ngIf="resource.secondaryFilePaths.length === 0">
+                    <span translate>api.noSelectedFiles</span>
+                  </p>
+                  <div *ngIf="resource.secondaryFilePaths">
+                    <p *ngFor="let file of resource.secondaryFilePaths">
+                      {{ file.fileUri }}
+                      <button mat-button (click)="unSelectFile(file, 'secondary')">
+                        <em class="material-icons">
+                          delete_outline
+                        </em>
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </mat-step>
+
+        <!-- Request Response Step -->
+
+        <mat-step style="text-align: left">
+          <ng-template matStepLabel>
+            <span translate>api.resDetails</span>
+          </ng-template>
+          <div class="divider divider-md"></div>
+          <div style="height: 50vh; overflow-y: auto; overflow-x: hidden">
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>{{ 'api.placeholder.request' | translate }}</mat-label>
+                  <mat-select matNativeControl [(value)]="resource?.consumes[0]"
+                    (onSelectionChange)="addToConsumes($event)">
+                    <mat-option value="application/json">application/json</mat-option>
+                    <mat-option value="application/xml">application/xml</mat-option>
+                    <mat-option value="multipart/form-data">multipart/form-data</mat-option>
+                    <mat-option value="text/plain">text/plain</mat-option>
+                    <mat-option value="text/xml">text/xml</mat-option>
+                    <mat-option value="text/html">text/html</mat-option>
+                  </mat-select>
+                  <!-- Tooltip -->
+                  <mat-icon matSuffix style="cursor: pointer; margin-top:10px; margin-right:10px;"
+                    matTooltipClass="test" matTooltip="{{ 'help.contentTypeReq' | translate }}">
+                    info
+                  </mat-icon>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>{{ 'api.placeholder.response' | translate }}</mat-label>
+                  <mat-select matNativeControl [(value)]="resource?.produces[0]"
+                    (selectionChange)="addToProduces($event)">
+                    <mat-option value="application/json">application/json</mat-option>
+                    <mat-option value="application/xml">application/xml</mat-option>
+                    <mat-option value="multipart/form-data">multipart/form-data</mat-option>
+                    <mat-option value="text/plain">text/plain</mat-option>
+                    <mat-option value="text/xml">text/xml</mat-option>
+                    <mat-option value="text/html">text/html</mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix style="cursor: pointer; margin-top:10px; margin-right:10px;"
+                    matTooltipClass="test" matTooltip="{{ 'help.contentTypeRes' | translate }}">
+                    info
+                  </mat-icon>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <hr>
+
+            <h5 style="text-align: left">
+              <span translate>api.httpCodes</span>
+              <mat-icon matPrefix style="cursor: pointer; margin-top:10px; margin-right:10px;" matTooltipClass="test"
+                matTooltip="{{ 'help.httpStatus' | translate }}">
+                info
+              </mat-icon>
+            </h5>
+            <div class="row">
+
+              <mat-form-field class="col-md-3">
+                <input matInput placeholder="Code..." [(ngModel)]="response.code" name="responseCode">
+              </mat-form-field>
+              <mat-form-field class="col-md-7">
+                <input matInput placeholder="Description..." [(ngModel)]="response.description"
+                  name="responseDescription">
+              </mat-form-field>
+              <div class="col-md-2">
+                <button mat-stroked-button class="addBtn" (click)="addNewResponse()">
+                  <mat-icon class="material-icons">add</mat-icon>&nbsp; <span translate>api.ad</span>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="resource.responses?.length > 0">
+              <div style="height: 40vh; border-bottom: none; overflow-y: auto">
+                <table class="mdl-data-table" style="width: 100%;">
+                  <thead>
+                    <tr>
+                      <th id="code" class="mdl-data-table__cell--non-numeric">Code</th>
+                      <th id="desc" class="mdl-data-table__cell--non-numeric">Description</th>
+                      <th id="action"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of resource?.responses; let i = index">
+                      <td class="mdl-data-table__cell--non-numeric" style="width: 30%;">{{ item?.code }} </td>
+                      <td class="mdl-data-table__cell--non-numeric" style="width: 30%;">{{ item?.description }} </td>
+                      <td><button mat-button (click)="deleteResponse(i)" style="width: 10%;">
+                          <em class="material-icons">
+                            delete_outline
+                          </em></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Documentation Section -->
+        <mat-step [stepControl]="secondFormGroup" style="height: 80vh; overflow-y: auto;">
+          <ng-template matStepLabel><span translate>api.doc</span></ng-template>
+          <div class="divider divider-md"></div>
+
+          <form [formGroup]="secondFormGroup" style="height: 50%; overflow-y: auto;width: 100%">
+            <div>
+              <div class="advanced-section">
+                <div>
+                  <mat-form-field style="width: 100%">
+                    <input style="width: 100%;" matInput formControlName="resourceName"
+                      placeholder="{{ 'api.placeholder.name' | translate }}" [(ngModel)]="resource.name"
+                      name="resourceName">
+                  </mat-form-field>
+                  <mat-form-field style="width: 100%">
+                    <input matInput formControlName="resourceDesription" placeholder="Description"
+                      [(ngModel)]="resource.description" name="resourceDesription">
+                  </mat-form-field>
+                  <mat-form-field style="width: 100%">
+                    <input matInput formControlName="resourceSummary" placeholder="Summary"
+                      [(ngModel)]="resource.summary" name="resourceSummary">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- Recap Step-->
+        <mat-step>
+          <ng-template matStepLabel>
+            <span translate>
+              api.recap
+            </span>
+          </ng-template>
+
+          <app-recap [resource]="resource" [secondaryFiles]="secondaryFiles" [selectedFileName]="selectedFileName"
+            [parameters]="parameters">
+          </app-recap>
+
+        </mat-step>
+
+      </mat-horizontal-stepper>
+
+      <div class="divider divider-md"></div>
+
+
+      <div class="box-body text-right">
+        <button id="confirm" (click)="saveResource()" mat-raised-button color="primary" class="btn-w-md"
+          *ngIf="resource.executionType !== 'Query'; else queryConfirm"
+          [disabled]="!resource.httpMethod || !resource.path || !apiUnicity" cdkFocusInitial>
+          <span translate>popups.buttons.saveAndExit</span>
+        </button>
+
+        <ng-template #queryConfirm>
+          <button id="confirm" (click)="saveResource()" mat-raised-button color="primary" class="btn-w-md"
+            [disabled]="!resource.customQuery.collectionName || !resource.httpMethod || emptyPath || resource.path === '/' || !apiUnicity"
+            cdkFocusInitial>
+            <span translate>popups.buttons.saveAndExit</span>
+          </button>
+        </ng-template>
+        <span class="space"></span>
+
+        <button mat-raised-button class="btn-w-md" (click)="goBack(stepper)" [disabled]="stepper.selectedIndex === 0">
+          <span translate>popups.buttons.back</span></button>
+        <span class="space"></span>
+        <button mat-raised-button (click)="goForward(stepper)" color="primary" class="btn-w-md"
+          *ngIf="stepper.selectedIndex !== stepper.steps?.length - 1" [disabled]="!apiUnicity">
+          <span translate>{{'popups.buttons.next'}}</span>
+        </button>
+        <button id="confirm" (click)="saveResource()" mat-raised-button color="primary" class="btn-w-md"
+          *ngIf="stepper.selectedIndex === stepper.steps?.length - 1" cdkFocusInitial>
+          <span translate>{{'popups.buttons.confirm'}}</span>
+        </button>
+      </div>
+
+
+
+    </div>
+  </div>

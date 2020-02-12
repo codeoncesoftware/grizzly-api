@@ -1,0 +1,86 @@
+<div class="container" style="text-align: center;">
+  <!-- Modal Section START -->
+  <form name="form" (ngSubmit)="ff.form.valid" #ff="ngForm">
+    <h1 mat-dialog-title style="text-align: center" translate>{{ data.action.msg }}</h1>
+    <div mat-dialog-content class="row">
+      <mat-form-field class="col-md-12">
+
+        <input matInput placeholder="{{ 'popups.container.placeholder' | translate }}" [(ngModel)]="container.name"
+          #containerName="ngModel" name="containerName" (keyup.enter)="validateContainer(container)" (keyup)="onInput()"
+          value="data?.container?.name"
+          pattern="^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+          required="true" autofocus>
+
+      </mat-form-field>
+      <!-- Naming Verification Rules Section START -->
+      <div *ngIf="containerName?.errors?.required && containerName?.touched">
+        <ul class="error">
+          <li translate>popups.container.errors.null</li>
+        </ul>
+      </div>
+      <div *ngIf="containerName?.errors?.pattern">
+        <ul class="error">
+          <li>
+            <span translate>popups.container.errors.pattern</span>
+            <a href="https://semver.org/" target="_blank" rel="noopener noreferrer">SEMVER</a>
+            <br>
+            <a href="https://regex101.com/r/vkijKf/1/" target="_blank" rel="noopener noreferrer"><span
+                translate>popups.container.errors.patternExample</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="!uniqueName">
+        <ul class="error">
+          <li translate>popups.container.errors.unicity</li>
+        </ul>
+      </div>
+      <!-- Naming Verification Rules Section END -->
+
+      <mat-form-field class="col-md-12">
+        <textarea matInput placeholder="{{'container-modal.placeholder.description' |translate}}" rows="10"
+          [(ngModel)]="container.description" name="description"></textarea>
+      </mat-form-field>
+
+
+    </div>
+    <div class="container">
+      <div class="row" *ngIf="data.showImportSection">
+        <div class="col-xl-12 col-lg-12">
+          <p style="text-align: left" translate>container-modal.zip</p>
+          <button mat-stroked-button (click)="inputFile.click()" class="importContBtn">
+            <span translate>container-modal.import</span>
+          </button>
+          <input #inputFile type="file" name="file" [style.display]="'none'" ng2FileSelect [uploader]="uploader">
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="uploader.queue.length > 0">
+      <div class="row" *ngFor="let item of uploader.queue">
+        <hr>
+        <div class="col-6">
+          <p><span translate>container-modal.selected</span> {{ item?.file?.name }}</p>
+        </div>
+        <div class="col-6">
+          <span (click)="clearUploaderQueue()">
+            <em class="material-icons" style="bottom:0">
+              delete_outline
+            </em>
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="box-body text-right">
+      <button mat-raised-button mat-dialog-close class="btn-w-md"><span translate>popups.buttons.cancel</span></button>
+      <span class="space"></span>
+      <button (click)="validateContainer(container)" mat-raised-button id="confirm" type="submit" color="primary"
+        class="btn-w-md" [disabled]="ff.form.invalid || !uniqueName">
+        <span translate>popups.buttons.confirm</span></button>
+    </div>
+
+  </form>
+
+</div>

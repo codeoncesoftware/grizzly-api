@@ -1,0 +1,79 @@
+$padding-for-icon: 40px;
+
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+.page-auth {
+  background-color: $gray-200;
+  min-height: 100%;
+  //background: url('#{$image_path}background/2.png') no-repeat center center fixed; 
+  background:
+    -webkit-linear-gradient(65deg, #004586 10%, hsla(176.06, 91.39%, 45.08%, 0) 80%),
+    -webkit-linear-gradient(135deg, #000A31 15%, hsla(208.85, 100%, 25.69%, 0) 80%),
+    -webkit-linear-gradient(205deg, #002456 100%, hsla(180.87, 92%, 14.71%, 0) 100%);
+  background:
+    linear-gradient(25deg, #004586 10%, hsla(176.06, 91.39%, 45.08%, 0) 80%),
+    linear-gradient(315deg, #000A31 15%, hsla(208.85, 100%, 25.69%, 0) 80%),
+    linear-gradient(245deg, #002456 100%, hsla(180.87, 92%, 14.71%, 0) 100%);
+  background-size: cover;
+  padding: 0 10px;
+
+  .card {
+    @include z-depth-2;
+    padding: 10px 30px;
+  }
+  .logo {
+    font-size: 32px;
+    &.text-center {
+      padding: 0;
+    }
+    a {
+      font-weight: normal;
+      text-decoration: none;
+    }
+    margin-bottom: 1.3em;
+  }
+
+  .main-body {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0px 0 20px;
+    @media (min-width: map-get($grid-breakpoints, md)) {
+      padding-top: 30px;
+    }
+  }
+  .additional-info {
+    color: $text-muted;
+    background-color: rgba(#000, .04);
+    padding: 10px 6px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: $font-size-sm;
+    a {
+      color: $gray-light;
+    }
+    .divider-h {
+      border-right: 1px solid rgba(#000, .1);
+      margin: 0 15px;
+    }
+  }
+
+
+  //
+  &.page-confirm-email {
+    .logo {
+      font-size: 24px;
+      margin-bottom: .8em;
+    }
+  }
+  .confirm-mail-icon {
+    text-align: center;
+    .material-icons {
+      color: $gray-light;
+      font-size: 100px;
+    }
+  }
+}

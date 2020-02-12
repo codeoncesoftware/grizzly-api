@@ -1,0 +1,77 @@
+<app-loader></app-loader>
+<div class="page-auth">
+  <div class="main-body">
+
+    <div class="row justify-content-center">
+      <div class="" style="background-color: transparent; padding:10px; margin-bottom: 0px">
+        <div>
+          <img style="vertical-align:middle; height: 5vw;" src="../../../assets/images/logo/white-logo.png"
+            alt="Code Once Logo">
+          <span style="color: white; font-size: 4vw; vertical-align:middle; font-family: 'Nunito', sans-serif;">&nbsp;
+            Grizzly API</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-white">
+      <h4 style="text-align: center">
+        <span translate>auth.signin.title</span>
+        <div style="float: right; position: absolute; right: 0; top: 0">
+          <button mat-button [matMenuTriggerFor]="menu" class="md-button header-btn">
+            <span *ngIf="!isFr" class="flag-icon flag-icon-fr"> </span><span *ngIf="isFr"
+              class="flag-icon flag-icon-gb"></span>
+            {{selectedLanguage}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="isFr" (click)="setLang('fr')"><span class="flag-icon flag-icon-fr"></span>
+              FR</button>
+            <button mat-menu-item *ngIf="!isFr" (click)="setLang('en')"><span class="flag-icon flag-icon-gb"></span>
+              EN</button>
+          </mat-menu>
+        </div>
+      </h4>
+
+      <div class="card-content">
+
+
+        <form name="form" (ngSubmit)="ffLogin.form.valid" #ffLogin="ngForm">
+          <div *ngIf="!resetPasswordBool">
+            <div class="form-group">
+              <mat-form-field class="full-width">
+                <input required matInput type="text" name="username" placeholder="Username" [(ngModel)]="username"
+                  autofocus>
+                <mat-icon matSuffix class="material-icons">mail_outline</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="full-width">
+                <input required matInput type="password" name="pass"
+                  placeholder="{{ 'auth.signin.placeholder.password' | translate}}" [(ngModel)]="pass">
+                <mat-icon matSuffix class="material-icons">lock_outline</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="alert alert-danger" role="alert" *ngIf="!logged && !successfulReset">
+            <span translate>{{errorMessage}}</span>
+          </div>
+
+
+
+          <div class="divider divider-md"></div>
+
+
+          <button mat-raised-button type="submit" color="primary" (click)="login()" class="float-right"
+            [disabled]="ffLogin.form.invalid" *ngIf="!resetPasswordBool"><span translate>auth.signin.btn</span></button>
+
+
+        </form>
+
+        <br><br>
+
+
+        <div class="divider divider-md"></div>
+
+      </div>
+    </div>
+  </div>
+</div>

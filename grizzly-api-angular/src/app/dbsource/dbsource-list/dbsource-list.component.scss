@@ -1,0 +1,32 @@
+.dbsource-toolbar {
+  background-color: #002659;
+  color: white;
+  height: auto;
+}
+a:hover {
+  color: #002659; /*the default color*/
+}
+
+button {
+  cursor: pointer;
+}
+
+button.mat-primary{
+  background-color: #002659;
+}
+
+@media (max-height: 900px) {
+  .dbsources {
+    margin-bottom: 50px
+  }
+}
+@media (max-height: 700px) {
+  .dbsources {
+    margin-bottom: 70px
+  }
+}
+@media (max-height: 500px) {
+  .dbsources {
+    margin-bottom: 90px
+  }
+}

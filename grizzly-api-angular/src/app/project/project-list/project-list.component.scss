@@ -1,0 +1,17 @@
+.project-toolbar {
+    background-color: #002659; 
+    color:white; 
+    height: auto;
+}
+
+a:hover {
+    color: #002659; /*the default color*/
+  }
+
+  button {
+    cursor: pointer;
+  }
+  
+  button.mat-primary{
+    background-color: #002659;
+  }

@@ -1,0 +1,622 @@
+{
+    "sidenav": {
+        "projects": "Microservices",
+        "datasources": "Data sources",
+        "database": "Database Linked : "
+    },
+    "auth": {
+        "authentication": "Authentication",
+        "signin": {
+            "title": "SIGN IN",
+            "placeholder": {
+                "email": "Email",
+                "password": "Password"
+            },
+            "account": "You don't have an account? ",
+            "errors": {
+                "email": "Please enter the associated email with your Grizzly account.",
+                "credentials": "The credentials are not valid.",
+                "validAccount": "Your account is not activated Yet ! \nPlease Check your email or ask for a new Confirmation link.",
+                "checkEmail": "Check your Email addess to reset your password."
+            },
+            "reset": "Reset Password",
+            "btn": "Login",
+            "signup": "Sign Up",
+            "forgotPass": "Forgot Password ?"
+        },
+        "signup": {
+            "title": "SIGN UP",
+            "placeholder": {
+                "firstName": "First Name",
+                "lastName": "Last Name",
+                "email": "Email",
+                "password": "Password",
+                "confirmPassword": "Confirm Password",
+                "phone": "Phone",
+                "organisation": "Organisation"
+            },
+            "errors": {
+                "emailValid": "Please enter a valid email.",
+                "phoneValid": "Please Enter a Valid Phone Number.",
+                "password": "Please enter your new password",
+                "passwordMatch": "Passwords do not match",
+                "emailUnicity": "This email already exists."
+            },
+            "welcome1": "Welcome aboard ",
+            "welcome2": "Your account has been created successfully. We’ve sent you an activation email to confirm your account.",
+            "welcome3": "Enjoy creating your CODELESS Microservices and let",
+            "us": " us ",
+            "welcome4": "know if there is anything we can help you with.",
+            "btn": "Sign Up",
+            "login": "Login",
+            "account": "Already have an account? "
+        },
+        "reset": {
+            "title": "RESET PASSWORD",
+            "placeholder": {
+                "password": "Password",
+                "confirmPassword": "Confirm Password"
+            },
+            "errors": {
+                "password": "Please enter your new password",
+                "passwordMatch": "Passwords do not match",
+                "notFound": "No user is registered with this email."
+            },
+            "welcome1": "Your password have been successfully submitted. You can now  ",
+            "welcome2": "with your new password.",
+            "btn": "Submit",
+            "signup": "Sign Up",
+            "login": "Login"
+        }
+    },
+    "header": {
+        "settings": "Settings",
+        "logout": "Logout",
+        "welcome": "Welcome,"
+    },
+    "project": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "select": "Select a Datasource for this Microservice",
+        "required": "This field is required.",
+        "req": "This field is required.",
+        "letters": "Please enter letters or numbers only.",
+        "64": "Please enter at least 64 characters.",
+        "creationTime": "Creation Time",
+        "lastUpdate": "Last Update",
+        "noDescription": "Congratulations! Your new MicroService is created. You can now configure it by adding more Endpoints.",
+        "datasource": {
+            "database": "Database",
+            "change": "Change"
+        },
+        "security": {
+            "config": "Security Configuration (JWT / JWS)",
+            "clientId": "Client ID",
+            "secretKey": "Secret Key (32 characters)",
+            "token": "Token Expiration (in seconds)",
+            "save": "Save",
+            "default": "Default Account",
+            "defaultDescription":"You have a default user with the role of \"admin\".",
+            "tokenConfig" : "Token Configuration",
+            "manageRoles": "Manage Roles",
+            "addRole": "Add Role",
+            "roleExists": "This role already exists."
+        },
+        "authDocumentation": {
+            "user": "Security Documentation",
+            "description1": "Use this Endpoint in order to receive a JWT to secure the rest of your APIs.",
+            "description2": "You can add users with roles using this Endpoint.",
+            "description3": "Add the Token to the Headers to use the secured Endpoints.",
+            "curlRequest" : "CURL Request",
+            "angularExample": "Angular Example",
+            "signinModal" : "Signin Modal",
+            "signupModal" : "Signup Modal",
+            "response": "Response",
+            "signupNotice": "These fields are required. Feel free to add extra fields as well.",
+            "tokenNotice": "This is an example of a token that you can use with secured Endpoints."
+        }
+    },
+    "datasource": {
+        "add": "Add data source",
+        "error": "No Data source has been found, please add one first",
+        "default": "Link to a new free data base"
+    },
+    "dbsource-modal": {
+        "clear": "Clear",
+        "cancel": "Cancel",
+        "add": "Add New Data Source",
+        "select": "Select your database provider",
+        "fill": "Fill connection",
+        "review": "Review",
+        "update": "Update Data Source"
+    },
+    "dbsource-details": {
+        "warning": "Only databases with at least one collection will be displayed.",
+        "status": "Status"
+    },
+    "dbsource": {
+        "add": "Add a New DataSource",
+        "simpleAdd": "Add",
+        "fetch": "Fetching Data Sources",
+        "creationTime": "Creation Time",
+        "lastUpdate": "Last Update"
+    },
+    "dbsource-modal-cloud-connection": {
+        "cloud": "Cloud Connection",
+        "fail": "Fail to connect to DataSource, please check parameters !",
+        "success": "Connection Succeeded !",
+        "placeholder": {
+            "name": "DataSource Name",
+            "mongo": "MongoDB SRV connection String"
+        },
+        "test": "Test connection",
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "dbsource-modal-direct-connection": {
+        "connection": "Connection",
+        "perform": "Perform Authentication",
+        "auth": "Authentication",
+        "fail": "Fail to connect to DataSource, please check parameters !",
+        "success": "Connection Succeeded !",
+        "test": "Test connection",
+        "previous": "Previous",
+        "next": "Next",
+        "placeholder": {
+            "name": "Name",
+            "host": "Host",
+            "port": "Port",
+            "username": "Username",
+            "password": "Password",
+            "authb": "Authentication Database"
+        }
+    },
+    "dbsource-modal-free": {
+        "free": "Free Database",
+        "previous": "Previous",
+        "next": "Next",
+        "placeholder": {
+            "dbname": "Database Name"
+        }
+    },
+    "dbsource-modal-provider": {
+        "connection": "Connection Mode",
+        "free": "Free",
+        "onpremise": "On-Premise",
+        "cloud": "Cloud",
+        "info1": "Free is a limited offer and is suitable for getting started. Please contact us fore more information.",
+        "info2": "If you have not yet created your database on the cloud, you can use MongoDB Atlas at https://www.mongodb.com/cloud/atlas",
+        "next": "Next"
+    },
+    "dbsource-modal-review": {
+        "review": "Review Connection",
+        "datasource": "DataSource Name : ",
+        "database": "Database Name : ",
+        "mongo": "MongoDB SRV connection String : ",
+        "connection": " Connection : ",
+        "previous": "Previous",
+        "create": "Create Database",
+        "save": "Save",
+        "unicity": "Datasource name is not unique! "
+    },
+    "dashboard": {
+        "totalStored": "Total Stored Data",
+        "dataStored": "Data Downloaded",
+        "fileStored": "Data Uploaded",
+        "requestCount": "Requests Delivered",
+        "apiCount": "Endpoints Count",
+        "usedData": "Uploaded Data"
+    },
+    "not-found": {
+        "sorry": "Sorry, page not found",
+        "go": "Go Back to Home Page"
+    },
+    "settings": {
+        "placeholder": {
+            "first": "First Name",
+            "last": "Last Name",
+            "email": "Email",
+            "org": "Organization",
+            "current": "Current Password",
+            "new": "New Password",
+            "confirm": "Confirm Password",
+            "showChangeBtn": "Change Password",
+            "hideChangeBtn": "Hide Password Section"
+        },
+        "user": "User Profile",
+        "lock": "lock",
+        "please": "Please enter a valid email.",
+        "phone": "Phone",
+        "ph": "phone",
+        "valid": "Please enter a valid phone number",
+        "home": "Home",
+        "password": "Please enter your current password to update your profile.",
+        "change": "Change Password",
+        "enter": "Please enter your new password",
+        "match": "Passwords do not match.",
+        "thanks": "Thank you",
+        "profile": ", your profile has been updated successfully.",
+        "notvalid": "Your current Password is not valid.",
+        "number": "Please Enter a Valid Phone Number.",
+        "update": "Update Profile",
+        "pwdUpdate": ", your password has been updated successfully.",
+        "unlockBtn": "Unlock for profile update",
+        "confirmBtn": "Confirm",
+        "cancelBtn": "Cancel"
+    },
+    "container": {
+        "title": "Versions",
+        "add": "Add",
+        "clone": "Clone",
+        "import": "Import",
+        "edit": "Edit",
+        "delete": "Delete",
+        "deleteAll": "Delete All Versions",
+        "creationTime": "Creation Time",
+        "lastUpdate": "Last Update",
+        "enable": "Enable Version",
+        "noContainers": "No version to display.",
+        "showFiles": "Show All resources",
+        "actions": "Version",
+        "export": "Export",
+        "load": "Load Swagger",
+        "publish": "Publish Swagger",
+        "file": "File",
+        "swagger": "Validate and Publish",
+        "transformationDesc": "For any transformation Endpoint, you need to define a parameter in 'Body' named 'Body' which will contain the content of the template."
+    },
+    "container-modal": {
+        "placeholder": {
+            "description": "This is a description for this project version"
+        },
+        "zip": "You can add a ZIP file for an earlier version",
+        "import": "Import Container ZIP File",
+        "selected": "Selected file : "
+    },
+    "group": {
+        "actions": "Group",
+        "add": "Add Endpoints Group",
+        "edit": "Edit Group",
+        "delete": "Delete Group",
+        "deleteAll": "Delete All Groups",
+        "security": {
+            "action": "Secure Endpoint",
+            "secure": "Activate",
+            "insecure": "Disable"
+        }
+    },
+    "resource": {
+        "add": "Add Endpoint",
+        "edit": "Edit Endpoint",
+        "delete": "Delete Endpoint",
+        "deleteAll": "Delete",
+        "noResources": "No Endpoints to display."
+    },
+    "popups": {
+        "project": {
+            "add": "Add a new Micro-ervice",
+            "edit": "Update Microservice",
+            "details": "Microservice Details",
+            "selectDb": "Select Database",
+            "delete": {
+                "title": "Delete Microservice",
+                "msg": "Do you really want to delete {{ projectName }} ?"
+            },
+            "placeholder": {
+                "name": "Microservice name",
+                "description": "This is a description for this Microservice",
+                "database": "Database"
+            },
+            "errors": {
+                "unicity": "A Microservice with that name already exists",
+                "null": "Microservice name must not be empty",
+                "pattern": "spaces can be used only in the middle"
+            }
+        },
+        "container": {
+            "add": "Add a new version",
+            "clone": "Clone the current version",
+            "edit": "Update version",
+            "delete": {
+                "title": "Delete Version",
+                "msg": "Are you sure to delete '{{version}}'"
+            },
+            "deleteAll": "Delete all versions",
+            "placeholder": "Version",
+            "errors": {
+                "unicity": "Version already exists",
+                "null": "Version must not be empty",
+                "pattern": "Invalid semantic version name. Please respect the naming convention of ",
+                "patternExample" : "You may consult these naming examples"
+
+            }
+        },
+        "group": {
+            "add": "Add a new group",
+            "edit": "Update group",
+            "delete": {
+                "title": "Delete groupe",
+                "msg": "Confirm delete for group: '{{name}}'"
+            },
+            "deleteAll": "Delete all groups",
+            "errors": {
+                "unicity": "A group with that name already exists",
+                "null": "Group name must not be empty",
+                "pattern": "Spaces can be used only in the middle"
+            }
+        },
+        "resource": {
+            "add": "Add a new Endpoint",
+            "edit": "Update Endpoint",
+            "delete": {
+                "title": "Delete Endpoints",
+                "msg": "Do you want to delete the selected Endpoints ?"
+            },
+            "deleteAll": "Delete all Endpoints",
+            "placeholder": "Enter your Endpoint name",
+            "errors": {
+                "unicity": "An Endpoint with that name already exists",
+                "null": "Resource name must not be empty",
+                "pattern": "Spaces can be used only in the middle"
+            },
+            "jwt": {
+                "title": "Json Web Token",
+                "enable": "Do you want to enable the JWT Authentication?",
+                "disable": "Do you want to disable the JWT Authentication?",
+                "chooseRoles" : "Choose Roles",
+                "rolesError" :"You have to select a role"
+            },
+            "deleteAllFiles": {
+                "action": "Delete all Files",
+                "title": "Delete all Files",
+                "msg": "All files for version {{ containerName }} will be deleted permanently and cannot be recovered"
+            }
+        },
+        "dbsource": {
+            "delete": {
+                "title": "Delete Data Source",
+                "msg": "Confirm delete for datasource {{ datasourceName }} ?"
+            },
+            "noDelete": "This datasource cannot be deleted because it is already linked to project {{ projectName }}",
+            "collection": {
+                "drop": {
+                    "title": "drop Collection",
+                    "msg": "Confirm drop for collection {{ collectionName }} ?"
+                }
+            },
+            "errors": {
+                "unicity": "A Data-source with that name already exists"
+            }
+        },
+        "buttons": {
+            "confirm": "Confirm",
+            "cancel": "Cancel",
+            "back": "Back",
+            "next": "Next",
+            "saveAndExit": "Save & Exit",
+            "close": "Close"
+        },
+        "search": {
+            "showTree": "Show Tree",
+            "hideTree": "Hide Tree",
+            "import": "Import File"
+        }
+    },
+    "actions": {
+        "importProject": "Import Resources",
+        "importFromGit": "Import From Git Repository",
+        "importZipFile": "Import .ZIP File",
+        "importSwaggerFile": "Import Swagger File"
+    },
+    "git": {
+        "import": {
+            "error": "Check GIT repo URL and Credentials"
+        },
+        "btn": {
+            "clone": "Clone",
+            "check": "Check Branchs"
+        }
+    },
+    "api": {
+        "definition": "Endpoint Definition",
+        "doc": "Documentation",
+        "placeholder": {
+            "name": "Name",
+            "http": "HTTP Method",
+            "endpoint": "Endpoint path",
+            "request": "Request Content Type",
+            "response": "Response Content Type",
+            "this": "This is the content of the transformation",
+            "default": "Default Value",
+            "collection": "Collection Name",
+            "fname": "File name in parameters",
+            "selectCollection": "Please select a collection from the database",
+            "uploadFile": "Upload a file",
+            "snippet": "Select a default query"
+        },
+        "qtype": "Query Type",
+        "cancel": "Cancel",
+        "close": "Close",
+        "query": "Query",
+        "fichier": "Files Management",
+        "one": "One",
+        "many": "Many",
+        "in": "In order to manipulate files, retreive or delete, please provide a parameter called '",
+        "id": "id",
+        "htt": "' in the HTTP request with the value of the file id.",
+        "page": "Pageable",
+        "please": "Please provide the following query parameters when you call this Endpoint :",
+        "hold": ": parameter to hold the page number",
+        "per": ": parameter to hold the number of elements per page",
+        "insert": " To insert an object in the database, add it to the HTTP request Body on Endpoint call.",
+        "update": "To update an object in the database, define a query for find operation and add the columns to update in the HTTP request Body on Endpoint call.",
+        "string": "String",
+        "integer": "Integer",
+        "boolean": "Boolean",
+        "char": "Char",
+        "ad": "Add",
+        "name": "Name",
+        "value": "Value",
+        "body": "Body Content",
+        "or": "Or",
+        "n": "Name :",
+        "desc": "Description : ",
+        "summary": "Summary : ",
+        "http": "HTTP Method : ",
+        "prod": "Produces : ",
+        "cons": "Consumes : ",
+        "selected": "Selected File : ",
+        "path": "Path of execution : ",
+        "second": "Secondary Selected File :",
+        "list": "List of parameters : ",
+        "respo": "List of Responses : ",
+        "under": "Under each Http method, the Endpoint path needs to be unique.",
+        "add": "Add Endpoint",
+        "edit": "Edit Endpoint",
+        "addCollection": "Add New Collection",
+        "hideDetails": "Hide Details",
+        "advancedDetails": "Advanced Details",
+        "insertData": "Insert Data",
+        "updateData": "UpdateData",
+        "parameters": "Parameters List",
+        "recap": "Recapitulation",
+        "reqDetails": "Execution Request",
+        "resDetails": "HTTP Request | Response",
+        "file": "File Management",
+        "importedFile": "Fichier importé",
+        "staticRes": "CSS, Images, Media",
+        "returnNumber": "Number of elements to return",
+        "returnElementNumber": "Number of elements to return after executing the requête",
+        "template": "Markup template",
+        "resources": "Select your Markup Template and all resources to inject (CSS, Js, Images,Media...)",
+        "noSelectedFiles": "No Files Selected",
+        "templateStep": "Markup, CSS, Js, Images...",
+        "httpCodes": "HTTP Response Status Codes",
+        "type": "Endpoint Type",
+        "insertUpdate": "Please choose the type of this Endpoint, whether it is a data insertion or an update",
+        "reqBody": "You can define the body of the query to execute",
+        "paramList": "List of parameters",
+        "emptyPath": "Endpoint can't be empty",
+        "copy": "Copy Endpoint URL"
+    },
+    "query-api-modal": {
+        "close": "Close",
+        "file": "File Name",
+        "placeholder": {
+            "name": "Name...",
+            "default": "Default Value..."
+        },
+        "string": "String",
+        "integer": "Integer",
+        "boolean": "Boolean",
+        "reqType": "Request Type",
+        "char": "Char",
+        "name": "Name",
+        "type": "Type",
+        "value": "Value",
+        "confirm": "Confirm"
+    },
+    "staticresource": {
+        "add": "Add Static Resource "
+    },
+    "reset": {
+        "resetPassword": "Reset Password",
+        "enterPassword": "Please enter your new password",
+        "passwordNotMatch": "Passwords do not match",
+        "resetSuccessReset": "Your password have been successfully submitted. We have sent a confirmation link to your Email and will expire in 24 hours",
+        "submit": "Submit",
+        "signup": "Sign up",
+        "login": "Log in"
+    },
+    "resource-details-modal": {
+        "resource": "Resource Parameters",
+        "value": "Value",
+        "no": " No parameters attached to this resource.",
+        "close": "Close"
+    },
+    "help": {
+        "apiPath": "Set the Endpoint method (ex: GET) and the path (ex: '/users/all')",
+        "collection": "Select a collection from the dropdown list. \n You can use the \"Add New Collection\" button to add a new collection by typing the new collection's name and approve.",
+        "contentTypeReq": "The Content-Type entity header is used to indicate the media type of the resource in the request.",
+        "contentTypeRes": "The Content-Type entity header is used to indicate the media type of the resource in the response.",
+        "resNumber": "Return all the elements in the result array or only the first element.",
+        "fileName": "Set the name of the request parameter to host the file to upload on API call. \n (ex: 'fileToUpload')",
+        "reqType": "This Endpoint can be used to Insert or Update data. \n You need to select one option. \n By default, 'Insert' is selected.",
+        "projection": "Set the fields to return for all matching objects. Only the named properties will be returned.",
+        "query": "You can set the Query to be executed in order to manipulate data. The query needs to respect a specific format. Every field name needs to have a parameter as value that begins with '%'.\n (ex : { \"name\": \"%name\" } and you set a new parameter '%name' in parameters section)",
+        "addParam": "After setting the query body, add your parameters (that start with '%') in this section. \n (ex: {\"field\":\"%val\"}, add a parameter with these properties \n name : val, type : String, and a default value on the need )",
+        "httpStatus": "HTTP defines forty standard status codes that can be used to convey the results of a client’s request. You can override the status codes messages.",
+        "primaryRessource": "Select the file of the transformation.",
+        "secondaryRessource": "Select the static files to inject into the file of the transformation."
+    },
+    "file-explorer": {
+        "noResources": "No resources to display, to import click ",
+        "here": "here"
+    },
+    "import-modal": {
+        "dbError": "Please Link a Database to this Microservice before trying to upload resources.",
+        "fromGit": "From Git",
+        "clone": "Clone",
+        "branch": "Branch",
+        "public": "Public",
+        "private": "Private",
+        "username": "Username",
+        "password": "Password"
+    },
+    "swagger": {
+        "placeholder": {
+            "fileUrl": "Swagger File URL"
+        },
+        "errorMsg": "Swagger File can't be imported, please check the URL and try again"
+    },
+    "comingSoon": "Coming soon",
+    "toastr": {
+        "projectUpdated": "Microservice has been updated"
+    },
+    "messageBox": {
+        "project": {
+            "delete": "When you delete a microservice, this immediately happens",
+            "msgDeleteAllVersion": "All versions within this microservice are going to be deleted",
+            "msgDeleteAllFiles": "All files related to the versions of this microservice are going to be deleted"
+        },
+        "dbsource": {
+            "delete": "When you a Datasource, this immediately happens",
+            "msgDeleteAllcontent": "All the stored content will be deleted",
+            "msgNoBackup": "No possible backup for this datasource"
+        }
+    },
+    "swaggerModal": {
+        "descOpenApi": "We rely on OpenAPI Specification (formerly Swagger Specification), an API description format for REST APIs, to generate an OpenAPI file which allows you to describe your entire API.",
+        "afterConfig": "After configuring the microservice version by setting all the endpoints definitions, you have several options to validate, execute and share this version.",
+        "inspectorDesc": "Test and validate your endpoints",
+        "inscpectorVerify": "You can use this Swagger Inspector to verify that your APIs work as they should. This inspector should be used to test your Query APIs only.",
+        "inspectorValidate": "If your API definition contains any incoherence, the inspector will outline that error. You can execute any valid API directly from the inspector.",
+        "postmanDesc": "Import API definitions into Postman",
+        "executeLocal": "Test API locally",
+        "executeWays": "You can import your API definitions into Postman in two ways. you can choose to use :",
+        "json": "Json Content",
+        "file": "Swagger File",
+        "jsonStep1": "Copy the Swagger JSON content.",
+        "jsonStep2": "Click on the 'Import' button in the top left corner of Postman UI.",
+        "jsonStep3": "You will see multiple options to import the API doc. Click on the 'Paste Raw Text'.",
+        "jsonStep4": "Paste the JSON format in the text area and click import.",
+        "jsonStep5": "You will see all your API as 'Postman Collection' and can use it from the Postman.",
+        "downloadStep1": "Download the Swagger JSON file.",
+        "downloadStep2": "Click on the 'Import' button in the top left corner of Postman UI.",
+        "downloadStep3": "You will see multiple options to import the API doc. Click on the 'Import File'.",
+        "downloadStep4": "Drag and Drop the Swagger file directly of select the Swagger file from the file System",
+        "downloadStep5": "You will see all your APIs as 'Postman Collection' and can use it from the Postman.",
+        "shareFile": "Share Swagger File",
+        "downloadShare": "Download and share your API Definition",
+        "shareTwoWays": "Grizzly provides two ways for sharing you API definition depending on your needs :",
+        "withDevs": "1 - Share with other Grizzly-API users",
+        "devDesc": "In order to share your work with other users of Grizzly-API plateform you simply download the Swagger file dedicated for developement",
+        "forDev": "Download Swagger For Developement",
+        "withUsers": "2 - Share with final users",
+        "usersDesc": "In order to share your work with final users or clients, please download the Swagger file dedicated for Production",
+        "forProd": "Download Swagger For Production",
+        "click": " click here",
+        "swagFileJson": "Swagger File in JSON",
+        "serverUrl": "Server URL for "
+    }
+}

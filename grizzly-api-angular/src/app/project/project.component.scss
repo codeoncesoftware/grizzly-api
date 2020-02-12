@@ -1,0 +1,46 @@
+#description {
+    width: 100%;
+    padding:1em;
+    word-wrap: break-word
+}
+.border-radius-bottom {
+    border-radius: 7px;
+}
+#edit {
+    font-size: 10px;
+}
+.lower-opacity {
+    opacity: 0.77;
+}
+.mat-mini-fab {
+    width: 30px;
+    height: 30px;
+}
+#edit {
+    background-color: transparent;
+    height: 20px;
+    width: 0px;
+    border:none;
+}
+span,button{
+    vertical-align:middle
+}
+.project-header {
+    background-color: #002659; 
+    color: white;
+}
+.info {
+    cursor: pointer; 
+    margin-top:5px;
+    margin-right:10px; 
+    float: right; 
+    color: rgba(255,255,255,0.7);
+}
+
+button {
+    cursor: pointer;
+  }
+  
+  button.mat-primary{
+    background-color: #002659;
+  }

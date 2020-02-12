@@ -1,0 +1,87 @@
+<app-loader></app-loader>
+<section class="container-fluid">
+  <!-- Show a Project Details Section START -->
+  <article class="article">
+    <br>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="box" style="box-shadow: none" *ngIf="dbsource?.id">
+          <div class="box-header dbsource-header radius-top">
+            <button mat-button (click)="showDbsourceDetails()" style="cursor:pointer">
+              <mat-icon class="material-icons">
+                {{toggleDbsourceDetails  ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
+              </mat-icon> &nbsp;
+              <span matBadge="." class="hide-text" matBadgeSize="small"
+                [matBadgeColor]="dbsource?.active ? 'accent' : 'warn'" matBadgeOverlap="false">{{ dbsource?.name }}
+              </span>&nbsp;&nbsp;
+
+            </button>
+            <span style="flex: 1 1 auto;"></span>
+            <div style="float:right">
+
+              <button mat-button (click)="openEditDBSourceModal()">
+                <mat-icon>edit</mat-icon>&nbsp;
+                <span translate>project.edit</span>
+              </button>&nbsp;
+              <button mat-button (click)="openConfirmDeleteDialog()">
+                <mat-icon>delete_forever</mat-icon>&nbsp;
+                <span translate>project.delete</span>
+              </button>
+              <mat-icon class="info" matTooltipClass="test" matTooltip="{{ 'dbsource.creationTime' | translate }} : {{dbsource?.creationTime | date: 'M/d/yy, h:mm a'}}
+              {{ 'dbsource.lastUpdate' | translate }} : {{dbsource?.lastUpdate | date: 'M/d/yy, h:mm a'}}">
+                info
+              </mat-icon>
+            </div>
+          </div>
+          <div class="box-body bg-color-white radius-bottom" [@slideUpDown]="toggleDbsourceDetails">
+            <div class="widget-container">
+              <em class="material-icons" style="vertical-align: middle"> error </em><span translate> &nbsp;
+                dbsource-details.warning</span>
+              <h6><span translate>dbsource-details.status</span> :
+                <span *ngIf="dbsource?.active" style="font-weight: 400; color: #66BB6A">OK</span>
+                <span *ngIf="!dbsource?.active" style="font-weight: 400; color: #EF5350">KO</span>
+              </h6>
+              <h6 *ngIf="dbsource?.host">Host : <span style="font-weight: 400;"> {{ dbsource.host }}</span></h6>
+              <h6 *ngIf="dbsource?.port">Port : <span style="font-weight: 400;"> {{ dbsource.port }}</span></h6>
+              <h6 *ngIf="dbsource?.description">Description : <span style="font-weight: 400;">
+                  {{ dbsource.description }}</span></h6>
+            </div>
+
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let db of dbsource.databases" (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{ db.name }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ db.collections?.length }} Collections
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-list role="list">
+                  <mat-list-item role="listitem" *ngFor="let coll of db.collections; let i = index">
+                    <span>
+                      {{i+1}}&nbsp;-&nbsp;
+                    </span>
+                    <button mat-button (click)="getCollectionStats(db.name, coll)">
+                      <strong>{{ coll }}</strong>
+                    </button>
+                    <span (click)="confirmDropCollection(db.name, coll)">
+                      <em class="material-icons" *ngIf="showDelete(coll)" style="cursor: pointer">
+                        delete_forever
+                      </em>
+                    </span>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+            {{ collectionDetails | json }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <!-- Show a Project Details Section END -->
+
+</section>

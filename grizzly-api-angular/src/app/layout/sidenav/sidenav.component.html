@@ -1,0 +1,48 @@
+<nav class="app-sidebar" myAutoCloseMobileNav [ngClass]="{'bg-color-light': ['31','32','33','34','35','36'].indexOf(AppConfig.colorOption) >= 0,
+               'bg-color-dark': ['31','32','33','34','35','36'].indexOf(AppConfig.colorOption) < 0 }">
+
+  <section class="sidebar-header headerbar">
+
+    <a [routerLink]="['/app/dashboard']" class="brand" style="color: white"><img alt="logo"
+        src="../../../assets/images/logo/logo.png" style="width: 20%" />&nbsp;&nbsp; GrizzlyAPI</a>
+
+  </section>
+
+  <section class="sidebar-content">
+
+    <ul class="nav" myAccordionNav myAppendSubmenuIcon mySlimScroll myHighlightActiveItems>
+      <li>
+        <a mat-button [routerLink]="['/app/dashboard']">
+          <strong class="nav-icon nav-dot material-icons color-primary">dashboard</strong>
+          <span><strong> Dashboard </strong></span>
+        </a>
+      </li>
+    </ul>
+
+
+    <div>
+      <app-project-list></app-project-list>
+    </div>
+
+
+    <section style="height: 90%;">
+      <app-dbsource-list></app-dbsource-list>
+    </section>
+
+  </section>
+
+  <section class="sidebar-footer">
+    <ul class="nav">
+      <li>
+        <a mat-button aria-label="menu">
+          <em class="nav-icon material-icons">copyright</em>
+          <span class="nav-text"></span>
+          <span>Powered by Code Once</span>
+          <span [hidden]=true>{{"v:" + buildInfo.version}} {{buildInfo.date | date:'medium'}}</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+
+</nav>
