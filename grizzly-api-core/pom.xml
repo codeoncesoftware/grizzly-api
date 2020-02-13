@@ -199,33 +199,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- License -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>2.0.0</version>
-
-				<configuration>
-					<licenseName>apache_v2</licenseName>
-					<fileTemplate>file:://${project.baseUri}src/license/apache_v2.txt</fileTemplate>
-					<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
-					<processStartTag>========================LICENSE_START=================================</processStartTag>
-					<processEndTag>=========================LICENSE_END==================================</processEndTag>
-					<sectionDelimiter></sectionDelimiter>
-				</configuration>
-
-				<executions>
-					<execution>
-						<id>first</id>
-						<goals>
-							<goal>update-file-header</goal>
-						</goals>
-						<phase>process-sources</phase>
-					</execution>
-				</executions>
-
-			</plugin>
-
 		</plugins>
 	</build>
 
