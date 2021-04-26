@@ -30,7 +30,7 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<saxon.version>9.9.1-2</saxon.version>
 		<xml-resolver.version>1.2</xml-resolver.version>
-		<commons-io.version>2.6</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<sonar.exclusions>
 			**/*Dto.java,
 			**/*Configuration.java,
